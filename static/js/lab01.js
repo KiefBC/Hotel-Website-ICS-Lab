@@ -17,12 +17,21 @@ document.addEventListener("DOMContentLoaded", function () {
     let totalCost = roomCost * rooms * (1 + taxRate);
     totalCost = parseFloat(totalCost.toFixed(2));
 
-    // Display the total cost
-    document.getElementById("cost").innerHTML = `Your total cost is $${totalCost}`;
-
     // Display a message that says "Hello, [name], How many rooms do you want to book?"
-    document.getElementById("hello").innerHTML = `Hello, ${userName}, How many Rooms do you want to book?`;
-    document.getElementById("cost").innerHTML = `Your total cost is $${totalCost}`;
+    let helloMessage = `Hello, ${userName}, How many Rooms do you want to book?`;
+    let helloMessageEle = document.getElementById("hello");
+
+    let ele = '<span>' + helloMessage.split('').join('</span><span>') + '</span>';
+
+    $(ele).hide().appendTo(helloMessageEle).each(function (i) {
+        $(this).delay(100 * i).css({
+            display: 'inline',
+            opacity: 0
+        }).animate({
+            opacity: 1
+        }, 100);
+    });
+
 
     // Get the table element
     let table = document.getElementById("hotelTable");
@@ -54,4 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let cell10 = row5.insertCell();
     cell9.innerHTML = "Total Cost";
     cell10.innerHTML = totalCost.toString();
+
+    // Apply new table classes
+    void table.offsetWidth;
+    table.classList.add(`table-hover`, `table-striped`);
 });

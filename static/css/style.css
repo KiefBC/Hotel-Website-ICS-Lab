@@ -1,10 +1,40 @@
 body, html {
-    height: 100%;
-    margin: 0;
+    /*height: 100%;*/
+    /*margin: 0;*/
     font-family: Arial, Helvetica, sans-serif;
+    /*background-color: #283618;*/
+    color: #dda15e;
 }
 
 body {
-  background-color: #283618;
-  color: #dda15e;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url("../img/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#hello {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+caption {
+    color: #dda15e;
+}
+
+#hotelTableDiv {
+    margin-right: 2em;
+    margin-left: 2em;
+    margin-top: 3em;
+}
+
+table caption {
+    text-align: center;
+}
+
+footer{
+    margin-top: auto;
 }
