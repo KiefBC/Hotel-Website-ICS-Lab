@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let totalCost = roomCost * rooms * (1 + taxRate);
     totalCost = parseFloat(totalCost.toFixed(2));
 
-    let helloMessage = `Hello, ${userName}, How many Rooms do you want to book?`;
+    let helloMessage = `Hello, ${userName}.`;
     let helloMessageEle = document.getElementById("hello");
 
     let ele = '<span>' + helloMessage.split('').join('</span><span>') + '</span>';

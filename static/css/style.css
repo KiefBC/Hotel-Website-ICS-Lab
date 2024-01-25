@@ -15,10 +15,49 @@ body {
     background-size: cover;
 }
 
-#hello {
+#hello, #kiefersHotel{
     font-family: 'Source Code Pro', monospace;
     font-size: 28px;
     font-weight: bold;
+    color:#fefefe;
+    text-shadow:
+            0px 1px 0px #c0c0c0,
+            0px 2px 0px #b0b0b0,
+            0px 3px 0px #a0a0a0,
+            0px 4px 0px #909090,
+            0px 5px 10px rgba(0, 0, 0, 0.6);
+    line-height: 3em;
+    text-transform: uppercase;
+}
+
+/*#kiefersHotel, #kiefersHotelMessage {*/
+/*    font-family: "Paytone One", Helvetica, sans-serif;*/
+/*    text-transform: uppercase;*/
+/*    margin: 11px 0 17px 0;*/
+/*    font-size: 2em;*/
+/*    line-height: 80px;*/
+/*    color: #f1ebe5;*/
+/*    text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;*/
+/*    letter-spacing: 0.2em;*/
+/*}*/
+
+@keyframes animate{
+    0% {background-position:0;}
+    100% {background-position:-1000px 0;}
+}
+
+#kiefersHotelMessage {
+    font-family: 'Source Code Pro', monospace;
+    color:#fff;
+    font-size: 28px;
+    /*height:200px;*/
+    transform-origin:center bottom;
+    transform-style:preserve-3d;
+    transition:all 1s;
+    text-shadow:0 0 10px rgba(0,0,100,.5);
+}
+#kiefersHotelMessage:hover{
+    transform:rotate3d(1,0,0,40deg);
 }
 
 caption {
