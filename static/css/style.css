@@ -1,8 +1,5 @@
 body, html {
-    /*height: 100%;*/
-    /*margin: 0;*/
     font-family: Arial, Helvetica, sans-serif;
-    /*background-color: #283618;*/
     color: #dda15e;
 }
 
@@ -15,6 +12,34 @@ body {
     background-size: cover;
 }
 
+/*<editor-fold desc="Nav Bar Stuff">*/
+.nav-link.active {
+    transition: all 0.5s ease;
+    animation: colorChange 2s infinite;
+}
+
+.nav-link.active:hover {
+    transform: scale(0.9);
+}
+
+.nav-link.active:not(:hover) {
+    transform: scale(1.1);
+}
+
+@keyframes colorChange {
+    0% { color: red; }
+    50% { color: white; }
+    100% { color: red; }
+}
+
+#svgAvatar {
+    height: 2%;
+    width: 2%;
+    margin: 0 auto;
+}
+/*</editor-fold>*/
+
+/*<editor-fold desc="Messages">*/
 #hello, #kiefersHotel{
     font-family: 'Source Code Pro', monospace;
     font-size: 28px;
@@ -30,16 +55,14 @@ body {
     text-transform: uppercase;
 }
 
-/*#kiefersHotel, #kiefersHotelMessage {*/
-/*    font-family: "Paytone One", Helvetica, sans-serif;*/
-/*    text-transform: uppercase;*/
-/*    margin: 11px 0 17px 0;*/
-/*    font-size: 2em;*/
-/*    line-height: 80px;*/
-/*    color: #f1ebe5;*/
-/*    text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;*/
-/*    letter-spacing: 0.2em;*/
-/*}*/
+#kiefersHotel {
+    font-family: "Paytone One", Helvetica, sans-serif;
+    text-transform: uppercase;
+    margin: 11px 0 17px 0;
+    font-size: 2em;
+    color: #f1ebe5;
+    letter-spacing: 0.2em;
+}
 
 @keyframes animate{
     0% {background-position:0;}
@@ -50,7 +73,6 @@ body {
     font-family: 'Source Code Pro', monospace;
     color:#fff;
     font-size: 28px;
-    /*height:200px;*/
     transform-origin:center bottom;
     transform-style:preserve-3d;
     transition:all 1s;
@@ -59,21 +81,34 @@ body {
 #kiefersHotelMessage:hover{
     transform:rotate3d(1,0,0,40deg);
 }
+/*</editor-fold>*/
 
+/*<editor-fold desc="Table Stuff">*/
 caption {
     color: #dda15e;
 }
 
 #hotelTableDiv {
-    margin-right: 2em;
-    margin-left: 2em;
-    margin-top: 3em;
+    width: 50%;
+    margin: 2em auto;
 }
 
 table caption {
     text-align: center;
 }
+/*</editor-fold>*/
 
-footer{
+footer {
     margin-top: auto;
+}
+
+@media (max-width: 1024px) {
+    #svgAvatar {
+        display: none;
+    }
+
+    .active {
+        transform: none;
+        animation: none;
+    }
 }

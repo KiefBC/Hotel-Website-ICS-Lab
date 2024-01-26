@@ -23,6 +23,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 100);
     });
 
+    // Change Avatar on mouseover
+    let svgAvatar = document.getElementById('svgAvatar');
+    svgAvatar.addEventListener('mouseover', function() {
+        svgAvatar.src = 'static/img/ironman-av.svg';
+    });
+    svgAvatar.addEventListener('mouseout', function() {
+        svgAvatar.src = 'static/img/batman-av.svg';
+    });
+
+    // Run the function when the window is resized
+    window.addEventListener('resize', updateSvgVisibility);
+    updateSvgVisibility(svgAvatar);
 
     createTable(roomCost, taxRate, rooms, totalCost);
 });
@@ -33,10 +45,10 @@ function createTable(roomCost, taxRate, rooms, totalCost) {
 
     // Define an array of objects, each representing a row in the table
     let tableData = [
-        { label: "Amount", value: roomCost },
-        { label: "Tax Rate", value: taxRate },
+        { label: "Amount", value: "$" + roomCost.toFixed(2) },
+        { label: "Tax Rate", value: taxRate + "%" },
         { label: "# of Rooms", value: rooms },
-        { label: "Total Cost", value: totalCost }
+        { label: "Total Cost**", value: "$" + totalCost.toFixed(2) }
     ];
 
     // Loop through the array and create a row for each object
@@ -50,5 +62,15 @@ function createTable(roomCost, taxRate, rooms, totalCost) {
 
     // Apply new table classes
     void table.offsetWidth;
-    table.classList.add(`table-hover`, `table-striped`);
+    // table.classList.add(`table-hover`, `table-striped`);
+}
+
+function updateSvgVisibility(svgAvatar) {
+    if (window.innerWidth > 1024) {
+        // If window width is greater than 985px, add the 'visible' class
+        svgAvatar.classList.add('visible');
+    } else {
+        // If window width is 985px or less, remove the 'visible' class
+        svgAvatar.classList.remove('visible');
+    }
 }
