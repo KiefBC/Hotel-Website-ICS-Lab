@@ -40,17 +40,17 @@ body {
 /*</editor-fold>*/
 
 /*<editor-fold desc="Messages">*/
-#hello, #kiefersHotel{
+#hello, #kiefersHotel {
     font-family: 'Source Code Pro', monospace;
-    font-size: 28px;
+    font-size: 1.5em;
     font-weight: bold;
     color:#fefefe;
     text-shadow:
-            0px 1px 0px #c0c0c0,
-            0px 2px 0px #b0b0b0,
-            0px 3px 0px #a0a0a0,
-            0px 4px 0px #909090,
-            0px 5px 10px rgba(0, 0, 0, 0.6);
+            0 1px 0 #c0c0c0,
+            0 2px 0 #b0b0b0,
+            0 3px 0 #a0a0a0,
+            0 4px 0 #909090,
+            0 5px 10px rgba(0, 0, 0, 0.6);
     line-height: 3em;
     text-transform: uppercase;
 }
@@ -107,8 +107,7 @@ footer {
         display: none;
     }
 
-    .active {
+    .nav-link.active:not(:hover) {
         transform: none;
-        animation: none;
     }
 }

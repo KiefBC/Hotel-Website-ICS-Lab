@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     let userName = prompt("What is your name?");
-    let taxRate = parseInt(prompt("What is the tax rate?"));
-    taxRate = taxRate / 100;
+    let taxRate = parseInt(prompt("What is the tax rate?")) / 100;
     let roomCost = parseInt(prompt("How much does it cost to book a room?"));
     let rooms = parseInt(prompt("How many rooms do you want to book?"));
 
@@ -67,10 +66,8 @@ function createTable(roomCost, taxRate, rooms, totalCost) {
 
 function updateSvgVisibility(svgAvatar) {
     if (window.innerWidth > 1024) {
-        // If window width is greater than 985px, add the 'visible' class
         svgAvatar.classList.add('visible');
     } else {
-        // If window width is 985px or less, remove the 'visible' class
         svgAvatar.classList.remove('visible');
     }
 }
