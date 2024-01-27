@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     let userName = prompt("What is your name?");
-    let taxRate = parseInt(prompt("What is the tax rate?")) / 100;
+    let taxRate = parseInt(prompt("What is the tax rate?"));
     let roomCost = parseInt(prompt("How much does it cost to book a room?"));
     let rooms = parseInt(prompt("How many rooms do you want to book?"));
 
-    let totalCost = roomCost * rooms * (1 + taxRate);
+    let totalCost = roomCost * rooms * (1 + (taxRate / 100));
     totalCost = parseFloat(totalCost.toFixed(2));
 
     let helloMessage = `Hello, ${userName}.`;
