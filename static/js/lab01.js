@@ -35,10 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
         svgAvatar.src = 'static/img/batman-av.svg';
     });
 
-    // Run the function when the window is resized
-    window.addEventListener('resize', updateSvgVisibility);
-    updateSvgVisibility(svgAvatar);
-
     createTable(roomCost, taxRate, rooms, totalCost);
 });
 
@@ -67,19 +63,5 @@ function createTable(roomCost, taxRate, rooms, totalCost) {
         let cell2 = row.insertCell();
         cell1.innerHTML = data.label;
         cell2.innerHTML = data.value.toString();
-    }
-}
-
-/**
- * Update the visibility of the svgAvatar
- * @param svgAvatar - The svgAvatar element
- *
- * @return void
- */
-function updateSvgVisibility(svgAvatar) {
-    if (window.innerWidth > 1024) {
-        svgAvatar.classList.add('visible');
-    } else {
-        svgAvatar.classList.remove('visible');
     }
 }
