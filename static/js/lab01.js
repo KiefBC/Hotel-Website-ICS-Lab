@@ -10,10 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let helloMessage = `Hello, ${userName}.`;
     let helloMessageEle = document.getElementById("hello");
+    let element = '<span>' + helloMessage.split('').join('</span><span>') + '</span>';
 
-    let ele = '<span>' + helloMessage.split('').join('</span><span>') + '</span>';
-
-    $(ele).hide().appendTo(helloMessageEle).each(function (i) {
+    /**
+     * This is a hacky way to get the effect I want
+     * I know I could use a for loop to append each letter,
+     * but I wanted to try something different
+     */
+    $(element).hide().appendTo(helloMessageEle).each(function (i) {
         $(this).delay(100 * i).css({
             display: 'inline',
             opacity: 0
@@ -38,19 +42,25 @@ document.addEventListener("DOMContentLoaded", function () {
     createTable(roomCost, taxRate, rooms, totalCost);
 });
 
+/**
+ * Create the table with the given data
+ * @param roomCost - The cost of a single room
+ * @param taxRate - The tax rate
+ * @param rooms - The number of rooms
+ * @param totalCost - The total cost
+ *
+ * @return void
+ */
 function createTable(roomCost, taxRate, rooms, totalCost) {
-    // Get the table element
     let table = document.getElementById("hotelTable");
 
-    // Define an array of objects, each representing a row in the table
     let tableData = [
         { label: "Amount", value: "$" + roomCost.toFixed(2) },
         { label: "Tax Rate", value: taxRate + "%" },
-        { label: "# of Rooms", value: rooms },
+        { label: "Number of Rooms", value: rooms + " rooms"},
         { label: "Total Cost**", value: "$" + totalCost.toFixed(2) }
     ];
 
-    // Loop through the array and create a row for each object
     for (let data of tableData) {
         let row = table.insertRow();
         let cell1 = row.insertCell();
@@ -58,12 +68,14 @@ function createTable(roomCost, taxRate, rooms, totalCost) {
         cell1.innerHTML = data.label;
         cell2.innerHTML = data.value.toString();
     }
-
-    // Apply new table classes
-    void table.offsetWidth;
-    // table.classList.add(`table-hover`, `table-striped`);
 }
 
+/**
+ * Update the visibility of the svgAvatar
+ * @param svgAvatar - The svgAvatar element
+ *
+ * @return void
+ */
 function updateSvgVisibility(svgAvatar) {
     if (window.innerWidth > 1024) {
         svgAvatar.classList.add('visible');
