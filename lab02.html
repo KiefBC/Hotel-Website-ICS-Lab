@@ -74,18 +74,6 @@
         <div class="col-md-6 my-5 px-5">
             <div class="card" id="math-card3">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 my-5 px-5">
-            <div class="card" id="math-card4">
-                <div class="card-body">
                     <h5 class="card-title">Iteration Mobilisation</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">Give me an Input to Prettify</h6>
                     <form>
@@ -95,7 +83,34 @@
                                    placeholder="Give me something">
                         </div>
                         <button type="submit" class="btn btn-primary" id="iteration-button">Iterate Me</button>
+                        <p id="iteration-output"></p>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 my-5 px-5">
+            <div class="card" id="math-card4">
+                <div class="card-body">
+                    <h5 class="card-title">WHO IS THA FAST</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Super Speed</h6>
+                    <form>
+                        <div class="form-group row align-items-center">
+                            <label for="speed1-input" class="col-sm-auto col-form-label">Speed1</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="speed1-input"
+                                       placeholder="Give me something">
+                            </div>
+                        </div>
+                        <div class="form-group row align-items-center mt-3 mb-3">
+                            <label for="speed2-input" class="col-sm-auto col-form-label">Speed2</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="speed2-input"
+                                       placeholder="Give me something">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="speed-button">Speed Me</button>
+                    </form>
+                    <p id="speed-output"></p>
                 </div>
             </div>
         </div>
@@ -113,6 +128,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+<script src="static/js/scriptTemplate.js"></script>
 <script src="static/js/lab02.js"></script>
 </body>
 </html>

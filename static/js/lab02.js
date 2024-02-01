@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     getOccupancy();
     setupRoomPriceButton();
+    iterationMagic();
+    compareSpeeds();
 });
 
 /**
@@ -45,10 +47,13 @@ function getOccupancy() {
 
     occupancyButton.addEventListener("click", function (event) {
         event.preventDefault();
+        hotelOccupancyOutput.innerHTML = '';
+        hotelOccupancyOutput.style.color = '';
 
-        let occupancy = parseInt(document.getElementById("iteration-input").value);
+        let occupancy = parseInt(document.getElementById("hotel-occupancy-input").value);
 
-        if (isNaN(occupancy) || occupancy < 0 || occupancy > 100) {
+        if (isNaN(occupancy) || occupancy < 0 || occupancy >= 101) {
+            hotelOccupancyOutput.style.color = 'teal';
             hotelOccupancyOutput.innerHTML = `The hotel occupancy must be a number between 0 and 100`;
         } else {
             if (occupancy >= 90) {
@@ -105,4 +110,73 @@ function roomPriceInputs(button) {
     `;
     document.querySelector('#math-card .card-body').insertAdjacentHTML('beforeend', inputHTML);
     button.textContent = 'Calculate Mean and Middle';
+}
+
+/**
+ * This function is used to create a pyramid of a given character using iteration
+ *
+ * @returns {void}
+ *
+ * @example
+ * iterationMagic();
+ */
+function iterationMagic() {
+    let iterationOutput = document.getElementById("iteration-output");
+    let iterationButton = document.getElementById("iteration-button");
+
+    iterationButton.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        iterationOutput.innerHTML = '';
+        let iterationValue = document.getElementById("iteration-input").value;
+        let n = 5;
+        let pyramid = '';
+
+        for(let i = 1; i <= n; i++) {
+            pyramid += iterationValue.repeat(i) + '<br>';
+        }
+        for(let i = n - 1; i >= 1; i--) {
+            pyramid += iterationValue.repeat(i) + '<br>';
+        }
+
+        iterationOutput.style.color = 'blue';
+        iterationOutput.innerHTML = pyramid;
+    });
+}
+
+function compareSpeeds() {
+    let speedOutput = document.getElementById("speed-output");
+    let speedButton = document.getElementById("speed-button");
+
+    speedButton.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        speedOutput.innerHTML = '';
+        let speedOneValue = document.getElementById("speed1-input").value;
+        let speedTwoValue = document.getElementById("speed2-input").value;
+
+        speedOutput.innerHTML = `
+            <p id="speed1-output">Speed 1: ${speedOneValue}</p>
+            <p id="speed2-output">Speed 2: ${speedTwoValue}</p>
+            `;
+
+        document.getElementById("speed1-output").style.color = "red";
+        document.getElementById("speed2-output").style.color = "blue";
+
+        if (isNaN(speedOneValue) || isNaN(speedTwoValue)) {
+            speedOutput.style.color = 'red';
+            speedOutput.innerHTML = `<p class="speed-compare">The speed must be a number</p>`;
+        } else {
+            if (speedOneValue > speedTwoValue) {
+                speedOutput.style.color = 'green';
+                speedOutput.innerHTML += `<p class="speed-compare">The first speed is greater than the second speed</p>`;
+            } else if (speedOneValue < speedTwoValue) {
+                speedOutput.style.color = 'blue';
+                speedOutput.innerHTML += `<p class="speed-compare">The second speed is greater than the first speed</p>`;
+            } else {
+                speedOutput.style.color = 'black';
+                speedOutput.innerHTML += `<p class="speed-compare">The two speeds are equal</p>`;
+            }
+        }
+    });
 }

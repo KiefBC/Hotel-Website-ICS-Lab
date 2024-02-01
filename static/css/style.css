@@ -123,8 +123,16 @@ table caption {
     margin: 1em 0 1em 0;
 }
 
-#hotelOccupancyOutput {
+#speed1-input, #speed2-input {
+    width: 50%;
+}
+
+#hotelOccupancyOutput, #iterationOutput, #speed-output {
     padding: 1em 0 0 0;
+}
+
+#iteration-button {
+    margin: 1em 0 1em 0;
 }
 
 footer {
