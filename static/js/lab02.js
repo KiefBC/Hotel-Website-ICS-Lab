@@ -46,7 +46,7 @@ function getOccupancy() {
     occupancyButton.addEventListener("click", function (event) {
         event.preventDefault();
 
-        let occupancy = parseInt(document.getElementById("hotelOccupancyInput").value);
+        let occupancy = parseInt(document.getElementById("iteration-input").value);
 
         if (isNaN(occupancy) || occupancy < 0 || occupancy > 100) {
             hotelOccupancyOutput.innerHTML = `The hotel occupancy must be a number between 0 and 100`;

@@ -28,9 +28,15 @@ body {
 }
 
 @keyframes colorChange {
-    0% { color: red; }
-    50% { color: white; }
-    100% { color: red; }
+    0% {
+        color: red;
+    }
+    50% {
+        color: white;
+    }
+    100% {
+        color: red;
+    }
 }
 
 #svgAvatar {
@@ -38,6 +44,7 @@ body {
     width: 2%;
     margin: 0 auto;
 }
+
 /*</editor-fold>*/
 
 /*<editor-fold desc="Messages">*/
@@ -45,13 +52,12 @@ body {
     font-family: 'Source Code Pro', monospace;
     font-size: 1.5em;
     font-weight: bold;
-    color:#fefefe;
-    text-shadow:
-            0 1px 0 #c0c0c0,
-            0 2px 0 #b0b0b0,
-            0 3px 0 #a0a0a0,
-            0 4px 0 #909090,
-            0 5px 10px rgba(0, 0, 0, 0.6);
+    color: #fefefe;
+    text-shadow: 0 1px 0 #c0c0c0,
+    0 2px 0 #b0b0b0,
+    0 3px 0 #a0a0a0,
+    0 4px 0 #909090,
+    0 5px 10px rgba(0, 0, 0, 0.6);
     line-height: 3em;
     text-transform: uppercase;
 }
@@ -65,23 +71,29 @@ body {
     letter-spacing: 0.2em;
 }
 
-@keyframes animate{
-    0% {background-position:0;}
-    100% {background-position:-1000px 0;}
+@keyframes animate {
+    0% {
+        background-position: 0;
+    }
+    100% {
+        background-position: -1000px 0;
+    }
 }
 
 #kiefersHotelMessage {
     font-family: 'Source Code Pro', monospace;
-    color:#fff;
+    color: #fff;
     font-size: 28px;
-    transform-origin:center bottom;
-    transform-style:preserve-3d;
-    transition:all 1s;
-    text-shadow:0 0 10px rgba(0,0,100,.5);
+    transform-origin: center bottom;
+    transform-style: preserve-3d;
+    transition: all 1s;
+    text-shadow: 0 0 10px rgba(0, 0, 100, .5);
 }
-#kiefersHotelMessage:hover{
-    transform:rotate3d(1,0,0,40deg);
+
+#kiefersHotelMessage:hover {
+    transform: rotate3d(1, 0, 0, 40deg);
 }
+
 /*</editor-fold>*/
 
 /*<editor-fold desc="Table Stuff">*/
@@ -97,6 +109,7 @@ caption {
 table caption {
     text-align: center;
 }
+
 /*</editor-fold>*/
 /*</editor-fold>*/
 
@@ -105,7 +118,7 @@ table caption {
     padding: 0.5em 0 1em 0;
 }
 
-#hotelOccupancyInput {
+#hotel-occupancy-input, #iteration-input {
     width: 50%;
     margin: 1em 0 1em 0;
 }
@@ -117,6 +130,7 @@ table caption {
 footer {
     margin-top: auto;
 }
+
 /*</editor-fold>*/
 
 @media (max-width: 1024px) {

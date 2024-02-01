@@ -61,8 +61,9 @@
                     <h6 class="card-subtitle mb-2 text-body-secondary">Hopefully we have room for you!</h6>
                     <form>
                         <div class="form-group">
-                            <label for="hotelOccupancyInput">Hotel Occupancy</label>
-                            <input type="number" class="form-control" id="hotelOccupancyInput" placeholder="Enter hotel occupancy">
+                            <label for="hotel-occupancy-input" hidden>Hotel Occupancy</label>
+                            <input type="number" class="form-control" id="hotel-occupancy-input"
+                                   placeholder="Enter hotel occupancy">
                         </div>
                         <button type="submit" class="btn btn-primary" id="occupancy-button">Submit</button>
                     </form>
@@ -75,7 +76,8 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
                     <a href="#" class="card-link">Card link</a>
                     <a href="#" class="card-link">Another link</a>
                 </div>
@@ -84,11 +86,16 @@
         <div class="col-md-6 my-5 px-5">
             <div class="card" id="math-card4">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <h5 class="card-title">Iteration Mobilisation</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Give me an Input to Prettify</h6>
+                    <form>
+                        <div class="form-group">
+                            <label for="iteration-input" hidden>Iteration</label>
+                            <input type="text" class="form-control" id="iteration-input"
+                                   placeholder="Give me something">
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="iteration-button">Iterate Me</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -102,6 +109,10 @@
     </div>
 </footer>
 
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 <script src="static/js/lab02.js"></script>
 </body>
 </html>
