@@ -1,38 +1,31 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    getRoomPrices();
     getOccupancy();
+    setupRoomPriceButton();
 });
 
 /**
- * This function is used to get the prices of 3 rooms and display the mean and middle value of the prices
+ * This function is used to calculate the mean and middle value of the prices of 3 rooms
  *
  * @returns {void}
  *
  * @example
- * getRoomPrices();
+ * calculateAndDisplayResults();
  */
-function getRoomPrices() {
-    //TODO: Add extra flavor to the output when the mean is greater than the middle value
-    //TODO: Add extra flavor to the output when the middle value is greater than the mean
-    //TODO: Add extra flavor to the output when the mean and middle value are the same
-    //TODO: Dynamic Input form for the room prices and validate the input
+function calculateAndDisplayResults() {
+    const inputs = document.querySelectorAll('#room-price-fields input');
+    const values = Array.from(inputs).map(input => parseInt(input.value, 10) || 0);
+    const mean = values.reduce((acc, val) => acc + val, 0) / values.length;
+    const sortedValues = [...values].sort((a, b) => a - b);
+    const middle = sortedValues[Math.floor(sortedValues.length / 2)];
 
-    let roomCard = document.getElementById("room-prices");
-    let middleMath = document.getElementById("middle-math");
-    let meanMath = document.getElementById("mean-math");
-    let mathButton = document.getElementById("math-button");
+    document.getElementById('middle-math').innerHTML = `Middle: $${middle}`;
+    document.getElementById('mean-math').innerHTML = `Mean: $${mean}`;
+    document.getElementById('room-prices').innerHTML = `Room Prices: $${values.join(', $')}`;
 
-    mathButton.addEventListener("click", function () {
-        let questions = [`What is the price of room 1?`, `What is the price of room 2?`, `What is the price of room 3?`]
-        let userInputs = questions.map(question => parseInt(prompt(question))).sort();
-        let mean = parseInt((userInputs.reduce((a, b) => a + b) / userInputs.length).toFixed(2));
-        let middleValue = userInputs.sort()[Math.floor(userInputs.length / 2)];
-
-        roomCard.innerHTML = `The Prices for the 3 Rooms are: $${userInputs[0]}, $${userInputs[1]}, $${userInputs[2]}`
-        middleMath.innerHTML = `The middle value is: $${middleValue}`;
-        meanMath.innerHTML = `The mean value is: $${mean}`;
-    });
+    // Remove input fields and reset button text
+    document.getElementById('room-price-fields').remove();
+    document.getElementById('math-button').textContent = 'Add Inputs';
 }
 
 /**
@@ -57,20 +50,59 @@ function getOccupancy() {
 
         if (isNaN(occupancy) || occupancy < 0 || occupancy > 100) {
             hotelOccupancyOutput.innerHTML = `The hotel occupancy must be a number between 0 and 100`;
-        }
-
-        if (occupancy >= 90) {
-            hotelOccupancyOutput.style.color = 'green';
-        } else if (occupancy >= 80) {
-            hotelOccupancyOutput.style.color = 'blue';
-        } else if (occupancy >= 65) {
-            hotelOccupancyOutput.style.color = 'yellow';
-        } else if (occupancy >= 51) {
-            hotelOccupancyOutput.style.color = 'black';
         } else {
-            hotelOccupancyOutput.style.color = 'red';
-        }
+            if (occupancy >= 90) {
+                hotelOccupancyOutput.style.color = 'green';
+            } else if (occupancy >= 80) {
+                hotelOccupancyOutput.style.color = 'blue';
+            } else if (occupancy >= 65) {
+                hotelOccupancyOutput.style.color = 'yellow';
+            } else if (occupancy >= 51) {
+                hotelOccupancyOutput.style.color = 'black';
+            } else {
+                hotelOccupancyOutput.style.color = 'red';
+            }
 
-        hotelOccupancyOutput.innerHTML = `The hotel occupancy is: ${occupancy}%`;
+            hotelOccupancyOutput.innerHTML = `The hotel occupancy is: ${occupancy}%`;
+        }
     });
+}
+
+/**
+ * This function is used to setup the room price button
+ * @returns {void}
+ * @example
+ * setupRoomPriceButton();
+ */
+function setupRoomPriceButton() {
+    document.getElementById('math-button').addEventListener('click', function () {
+        const button = this;
+        if (button.textContent.includes('Add Inputs')) {
+            roomPriceInputs(button);
+        } else {
+            calculateAndDisplayResults();
+        }
+    });
+}
+
+/**
+ * This function is used to add the input fields for the room prices
+ * and change the button text to 'Calculate Mean and Middle'
+ * @returns {void}
+ *
+ * @param button {HTMLElement} - The button element to change the text of
+ *
+ * @example
+ * roomPriceInputs(button);
+ */
+function roomPriceInputs(button) {
+    const inputHTML = `
+        <div id="room-price-fields">
+            <input type="number" class="form-control my-2" id="input1" placeholder="Enter Room 1 Price">
+            <input type="number" class="form-control my-2" id="input2" placeholder="Enter Room 2 Price">
+            <input type="number" class="form-control my-2" id="input3" placeholder="Enter Room 3 Price">
+        </div>
+    `;
+    document.querySelector('#math-card .card-body').insertAdjacentHTML('beforeend', inputHTML);
+    button.textContent = 'Calculate Mean and Middle';
 }
