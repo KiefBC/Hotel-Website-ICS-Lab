@@ -12,6 +12,7 @@ body {
     background-size: cover;
 }
 
+/*<editor-fold desc="Lab01">*/
 /*<editor-fold desc="Nav Bar Stuff">*/
 .nav-link.active {
     transition: all 0.5s ease;
@@ -97,6 +98,20 @@ table caption {
     text-align: center;
 }
 /*</editor-fold>*/
+/*</editor-fold>*/
+
+.card-subtitle {
+    padding: 0.5em 0 1em 0;
+}
+
+#hotelOccupancyInput {
+    width: 50%;
+    margin: 1em 0 1em 0;
+}
+
+#hotelOccupancyOutput {
+    padding: 1em 0 0 0;
+}
 
 footer {
     margin-top: auto;

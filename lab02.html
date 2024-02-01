@@ -10,17 +10,99 @@
 </head>
 <body>
 
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <img id="svgAvatar" src="static/img/batman-av.svg" alt="Menu Icon">
+        <a class="navbar-brand" href="#">Hotel Menu</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">Lab 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Lab 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Lab 3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Lab 4</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Lab 5</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div id="rooms"></div>
 
-<div>
-    <form>
-        <div class="form-group">
-            <label for="hotelOccupancyInput">Hotel Occupancy</label>
-            <input type="number" class="form-control" id="hotelOccupancyInput" placeholder="Enter hotel occupancy">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 my-5 px-5">
+            <div class="card" id="math-card">
+                <div class="card-body">
+                    <h5 class="card-title">3 Prices for Rooms?</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary" id="room-prices">The 3 Prices Are: </h6>
+                    <p class="card-text" id="middle-math">Middle: </p>
+                    <p class="card-text" id="mean-math">Mean: </p>
+                    <button type="button" class="btn btn-primary" id="math-button">Calculate</button>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="col-md-6 my-5 px-5">
+            <div class="card" id="hotel-occupancy-card">
+                <div class="card-body">
+                    <h5 class="card-title">How Full is the Hotel?</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Hopefully we have room for you!</h6>
+                    <form>
+                        <div class="form-group">
+                            <label for="hotelOccupancyInput">Hotel Occupancy</label>
+                            <input type="number" class="form-control" id="hotelOccupancyInput" placeholder="Enter hotel occupancy">
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="occupancy-button">Submit</button>
+                    </form>
+                    <p id="hotelOccupancyOutput"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 my-5 px-5">
+            <div class="card" id="math-card3">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 my-5 px-5">
+            <div class="card" id="math-card4">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<!-- Footer -->
+<footer class="bg-dark text-center text-white py-3">
+    <div class="container">
+        <p>Copyright &copy; Kiefer&trade;</p>
+    </div>
+</footer>
 
 <script src="static/js/lab02.js"></script>
 </body>
