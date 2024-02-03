@@ -76,28 +76,28 @@ const getOccupancy = () => {
         if (isNaN(occupancy) || occupancy < 0 || occupancy >= 101) {
 
             hotelOccupancyOutput.innerHTML = `<p id="oops-occupancy" class="pb-3">The hotel occupancy must be a number between 0 and 100</p>`;
-            applyStyles("oops-occupancy", "teal", "bold");
+            applyStyles("oops-occupancy", "teal", null);
         } else {
+
+            hotelOccupancyOutput.innerHTML = `<p class="pb-3" id="occupancy-statement">The hotel occupancy is: <span id="occupancy-num">${occupancy}%</span></p>`;
+            applyStyles("occupancy-statement", "teal", null)
 
             if (occupancy >= 90) {
 
-                applyStyles("hotelOccupancyOutput", "green", null)
+                applyStyles("occupancy-num", "green", "bold")
             } else if (occupancy >= 80) {
 
-                applyStyles("hotelOccupancyOutput", "blue", null)
+                applyStyles("occupancy-num", "blue", "bold")
             } else if (occupancy >= 65) {
 
-                applyStyles("hotelOccupancyOutput", "yellow", null)
+                applyStyles("occupancy-num", "yellow", "bold")
             } else if (occupancy >= 51) {
 
-                applyStyles("hotelOccupancyOutput", "black", null)
+                applyStyles("occupancy-num", "black", "bold")
             } else {
 
-                applyStyles("hotelOccupancyOutput", "red", null)
+                applyStyles("occupancy-num", "red", "bold")
             }
-
-            hotelOccupancyOutput.innerHTML = `<p class="pb-3">The hotel occupancy is: <span id="occupancy-num">${occupancy}</span>%</p>`;
-            applyStyles("occupancy-num", null, "bold");
         }
     });
 }
@@ -175,7 +175,7 @@ const iterationMagic = () => {
 
         if (iterationValue === '') {
             iterationOutput.innerHTML = `<p class="mt-5 mb-3">The character must not be empty</p>`;
-            applyStyles("iteration-output", "teal", "bold")
+            applyStyles("iteration-output", "teal", null)
         } else {
             iterationOutput.innerHTML = `<p class="mt-5 mb-3">${pyramid}</p>`;
             applyStyles("iteration-output", "blue", "bold")
@@ -206,7 +206,7 @@ const compareSpeeds = () => {
             speedOutput.innerHTML = '';
 
             speedOutput.innerHTML = `<p id="nan-output">The speed must be a number</p>`;
-            applyStyles("nan-output", "teal", "bold");
+            applyStyles("nan-output", "teal", null);
 
         } else {
 
@@ -222,20 +222,22 @@ const compareSpeeds = () => {
 
             if (speedOneValue > speedTwoValue) {
 
-                speedOutput.innerHTML = `<span id="speeder-names">Alexa</span> gets there first!`;
+                speedOutput.innerHTML = `<p id="first"><span id="speeder-names">Alexa</span> gets there first!</p>`;
                 applyStyles("speeder-names", "blue", "bold")
+                applyStyles("first", "teal", null)
 
             } else if (speedOneValue < speedTwoValue) {
 
-                speedOutput.innerHTML = `<span id="speeder-names">Siri</span> gets there first!`;
+                speedOutput.innerHTML = `<p id="first"><span id="speeder-names">Siri</span> gets there first!</p>`;
                 applyStyles("speeder-names", "red", "bold");
+                applyStyles("first", "teal", null)
 
             } else {
 
-                speedOutput.style.color = 'black';
-                speedOutput.innerHTML = `<p>The two speeds are equal! <span id="siri-same">Siri</span> and <span id="alexa-same">Alexa</span> will get there at the same time!</p>`;
+                speedOutput.innerHTML = `<p id="speeds-equal-statement">The two speeds are equal! <span id="siri-same">Siri</span> and <span id="alexa-same">Alexa</span> will get there at the same time!</p>`;
                 applyStyles("siri-same", "red", "bold");
                 applyStyles("alexa-same", "blue", "bold");
+                applyStyles("speeds-equal-statement", "teal", null)
             }
 
         }
