@@ -41,15 +41,17 @@
     </div>
 </nav>
 
+<!-- Math Cards -->
 <div class="container">
     <div class="row">
         <div class="col-md-6 my-5 px-5">
             <div class="card" id="math-card">
                 <div class="card-body">
                     <h5 class="card-title">3 Prices for Rooms?</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary" id="room-prices">The 3 Prices Are: </h6>
-                    <p class="card-text" id="middle-math">Middle: </p>
-                    <p class="card-text" id="mean-math">Mean: </p>
+                    <h6 class="card-subtitle mb-2 text-body-secondary" id="room-prices"></h6>
+                    <p class="card-text" id="middle-math"></p>
+                    <p class="card-text" id="mean-math"></p>
+                    <div id="oops" class="text-danger"></div>
                     <button type="button" class="btn btn-primary" id="math-button">Add Inputs</button>
                 </div>
             </div>
@@ -65,9 +67,9 @@
                             <input type="number" class="form-control" id="hotel-occupancy-input"
                                    placeholder="Enter hotel occupancy">
                         </div>
+                        <div id="hotelOccupancyOutput" class="mb-2"></div>
                         <button type="submit" class="btn btn-primary" id="occupancy-button">Submit</button>
                     </form>
-                    <p id="hotelOccupancyOutput"></p>
                 </div>
             </div>
         </div>
@@ -82,8 +84,8 @@
                             <input type="text" class="form-control" id="iteration-input"
                                    placeholder="Give me something">
                         </div>
+                        <div id="iteration-output"></div>
                         <button type="submit" class="btn btn-primary" id="iteration-button">Iterate Me</button>
-                        <p id="iteration-output"></p>
                     </form>
                 </div>
             </div>
@@ -95,14 +97,14 @@
                     <h6 class="card-subtitle mb-2 text-body-secondary">Super Speed</h6>
                     <form>
                         <div class="form-group row align-items-center">
-                            <label for="speed1-input" class="col-sm-auto col-form-label">Speed1</label>
+                            <label for="speed1-input" class="col-sm-auto col-form-label">Alexa</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="speed1-input"
                                        placeholder="Give me something">
                             </div>
                         </div>
                         <div class="form-group row align-items-center mt-3 mb-3">
-                            <label for="speed2-input" class="col-sm-auto col-form-label">Speed2</label>
+                            <label for="speed2-input" class="col-sm-auto col-form-label">Siri</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="speed2-input"
                                        placeholder="Give me something">
@@ -110,7 +112,8 @@
                         </div>
                         <button type="submit" class="btn btn-primary" id="speed-button">Speed Me</button>
                     </form>
-                    <p id="speed-output"></p>
+                    <div id="speeder-output"></div>
+                    <div id="speed-output"></div>
                 </div>
             </div>
         </div>
