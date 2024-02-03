@@ -8,4 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
     svgAvatar.addEventListener('mouseout', function () {
         svgAvatar.src = 'static/img/batman-av.svg';
     });
+
+
 });

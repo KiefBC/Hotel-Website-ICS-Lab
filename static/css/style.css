@@ -21,6 +21,13 @@ body {
     background-size: cover;
 }
 
+/*<editor-fold desc="Index">*/
+.active {
+    transition: all 0.5s ease;
+    animation: colorChange 2s infinite;
+}
+/*</editor-fold>*/
+
 /*<editor-fold desc="Lab01">*/
 /*<editor-fold desc="Nav Bar Stuff">*/
 .nav-link.active {

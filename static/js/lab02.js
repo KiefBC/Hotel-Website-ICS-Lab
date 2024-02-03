@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 let interValid = null;
+let styles = [];
 
 /**
  * This function calculates the mean and middle value of the prices of 3 rooms.
@@ -24,8 +25,12 @@ const calculateAndDisplayResults = () => {
 
     if (values.length === 0 || values.every(val => val === 0)) {
 
-        document.getElementById('middle-math').innerHTML = ``;
-        document.getElementById('mean-math').innerHTML = ``;
+        styles = [
+            { elementId: 'middle-math', color: null, fontWeight: null },
+            { elementId: 'mean-math', color: null, fontWeight: null }
+        ];
+        styles.forEach(style => applyStyles(style.elementId, style.color, style.fontWeight));
+
         document.getElementById('oops').innerHTML = `<p class="mb-5">You need to input a number</p>
                                                               <p id="countdown" class="mb-5"></p>`;
         document.getElementById('room-price-fields').remove();
@@ -69,7 +74,8 @@ const getOccupancy = () => {
 
     occupancyButton.addEventListener("click", function (event) {
         event.preventDefault();
-        hotelOccupancyOutput.innerHTML = '';
+
+        clearInnerHTML("hotelOccupancyOutput");
 
         let occupancy = parseInt(document.getElementById("hotel-occupancy-input").value);
 
@@ -112,9 +118,13 @@ const setupRoomPriceButton = () => {
     document.getElementById('math-button').addEventListener('click', function () {
         const button = this;
 
-        document.getElementById('middle-math').innerHTML = '';
-        document.getElementById('mean-math').innerHTML = '';
-        document.getElementById('room-prices').innerHTML = '';
+        styles = [
+            { elementId: 'middle', color: null, fontWeight: null },
+            { elementId: 'mean', color: null, fontWeight: null },
+            { elementId: 'room-prices', color: null, fontWeight: null}
+        ];
+
+        styles.forEach(style => applyStyles(style.elementId, style.color, style.fontWeight));
 
         if (button.textContent.includes('Add Inputs')) {
             roomPriceInputs(button);
@@ -144,7 +154,7 @@ const roomPriceInputs = (button) => {
     // If the countdown is running, stop it and clear the oops element
     if (interValid) {
         clearInterval(interValid);
-        document.getElementById('oops').innerHTML = ``;
+        clearInnerHTML("oops");
     }
 }
 
@@ -202,8 +212,7 @@ const compareSpeeds = () => {
 
         if (isNaN(speedOneValue) || isNaN(speedTwoValue) || speedOneValue === '' || speedTwoValue === '') {
 
-            speederOutput.innerHTML = '';
-            speedOutput.innerHTML = '';
+            clearInnerHTML("speeder-output", "speed-output");
 
             speedOutput.innerHTML = `<p id="nan-output">The speed must be a number</p>`;
             applyStyles("nan-output", "teal", null);
@@ -215,16 +224,25 @@ const compareSpeeds = () => {
             <p id="speed2-output" class="my-4"><span id="siri">Siri's</span> speed: <span id="true-speed2">${speedTwoValue}</span></p>
             `;
 
-            applyStyles("true-speed1", "blue", "bold");
-            applyStyles("true-speed2", "red", "bold");
-            applyStyles("alexa", "blue", "bold");
-            applyStyles("siri", "red", "bold");
+            styles = [
+                { elementId: "true-speed1", color: "blue", fontWeight: "bold" },
+                { elementId: "true-speed2", color: "red", fontWeight: "bold" },
+                { elementId: "alexa", color: "blue", fontWeight: "bold" },
+                { elementId: "siri", color: "red", fontWeight: "bold" }
+            ];
+
+            styles.forEach(style => applyStyles(style.elementId, style.color, style.fontWeight));
 
             if (speedOneValue > speedTwoValue) {
 
                 speedOutput.innerHTML = `<p id="first"><span id="speeder-names">Alexa</span> gets there first!</p>`;
-                applyStyles("speeder-names", "blue", "bold")
-                applyStyles("first", "teal", null)
+
+                styles = [
+                    { elementId: "speeder-names", color: "blue", fontWeight: "bold" },
+                    { elementId: "first", color: "teal", fontWeight: null }
+                ];
+
+                styles.forEach(style => applyStyles(style.elementId, style.color, style.fontWeight));
 
             } else if (speedOneValue < speedTwoValue) {
 
@@ -235,9 +253,14 @@ const compareSpeeds = () => {
             } else {
 
                 speedOutput.innerHTML = `<p id="speeds-equal-statement">The two speeds are equal! <span id="siri-same">Siri</span> and <span id="alexa-same">Alexa</span> will get there at the same time!</p>`;
-                applyStyles("siri-same", "red", "bold");
-                applyStyles("alexa-same", "blue", "bold");
-                applyStyles("speeds-equal-statement", "teal", null)
+
+                styles = [
+                    { elementId: "siri-same", color: "red", fontWeight: "bold" },
+                    { elementId: "alexa-same", color: "blue", fontWeight: "bold" },
+                    { elementId: "speeds-equal-statement", color: "teal", fontWeight: null }
+                ];
+
+                styles.forEach(style => applyStyles(style.elementId, style.color, style.fontWeight));
             }
 
         }
@@ -254,4 +277,14 @@ const applyStyles = (elementId, color, fontWeight) => {
     const element = document.getElementById(elementId);
     element.style.color = color;
     element.style.fontWeight = fontWeight;
+}
+
+/**
+ * This function clears the inner HTML of the specified elements.
+ * @param {string} elementId - The ID of the first element to clear the inner HTML of.
+ * @param more - The IDs of the other elements to clear the inner HTML of.
+ */
+const clearInnerHTML = (elementId, ...more) => {
+    const elements = [document.getElementById(elementId), ...more];
+    elements.forEach(element => element.innerHTML = '');
 }
