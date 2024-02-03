@@ -174,12 +174,11 @@ const iterationMagic = () => {
         }
 
         if (iterationValue === '') {
-            iterationOutput.style.color = 'teal';
-            iterationOutput.style.fontWeight = 'bold';
             iterationOutput.innerHTML = `<p class="mt-5 mb-3">The character must not be empty</p>`;
+            applyStyles("iteration-output", "teal", "bold")
         } else {
-            iterationOutput.style.color = 'blue';
             iterationOutput.innerHTML = `<p class="mt-5 mb-3">${pyramid}</p>`;
+            applyStyles("iteration-output", "blue", "bold")
         }
     });
 }
