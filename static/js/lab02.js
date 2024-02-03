@@ -46,7 +46,7 @@ const calculateAndDisplayResults = () => {
     } else {
 
         document.getElementById('middle-math').innerHTML = `<span id="middle">Middle</span>: $${middle}`;
-        document.getElementById('mean-math').innerHTML = `<span id="mean">Mean</span>: $${mean}`;
+        document.getElementById('mean-math').innerHTML = `<span id="mean">Mean</span>: $${mean.toFixed(2)}`;
         document.getElementById('room-prices').innerHTML = `Room Prices: $${values.join(', $')}`;
 
         applyStyles('middle', 'blue', 'bold');
