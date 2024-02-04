@@ -118,13 +118,17 @@ const setupRoomPriceButton = () => {
     document.getElementById('math-button').addEventListener('click', function () {
         const button = this;
 
+        document.getElementById('middle-math').innerHTML = '';
+        document.getElementById('mean-math').innerHTML = '';
+        document.getElementById('room-prices').innerHTML = '';
+
         styles = [
-            { elementId: 'middle', color: null, fontWeight: null },
-            { elementId: 'mean', color: null, fontWeight: null },
-            { elementId: 'room-prices', color: null, fontWeight: null}
+            { elementId: 'middle-math' },
+            { elementId: 'mean-math' },
+            { elementId: 'room-prices' }
         ];
 
-        styles.forEach(style => applyStyles(style.elementId, style.color, style.fontWeight));
+        styles.forEach(style => clearInnerHTML(style.elementId));
 
         if (button.textContent.includes('Add Inputs')) {
             roomPriceInputs(button);
