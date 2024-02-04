@@ -275,8 +275,12 @@ const compareSpeeds = () => {
  */
 const applyStyles = (elementId, color, fontWeight) => {
     const element = document.getElementById(elementId);
-    element.style.color = color;
-    element.style.fontWeight = fontWeight;
+    if (element) {
+        element.style.color = color;
+        element.style.fontWeight = fontWeight;
+    } else {
+        console.warn(`Element with id "${elementId}" not found.`);
+    }
 }
 
 /**
