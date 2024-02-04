@@ -118,6 +118,10 @@ const setupRoomPriceButton = () => {
     document.getElementById('math-button').addEventListener('click', function () {
         const button = this;
 
+        document.getElementById('middle-math').innerHTML = '';
+        document.getElementById('mean-math').innerHTML = '';
+        document.getElementById('room-prices').innerHTML = '';
+
         styles = [
             { elementId: 'middle-math' },
             { elementId: 'mean-math' },
