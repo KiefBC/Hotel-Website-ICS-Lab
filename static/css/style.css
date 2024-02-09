@@ -206,6 +206,15 @@ footer {
 
 /*</editor-fold>*/
 
+#name-input, #find-letter-input, #date-input {
+    width: 50%;
+    margin: 1em 0 1em 0;
+}
+
+input[type="date"] {
+    text-align: center;
+}
+
 @media (max-width: 1024px) {
     #svgAvatar {
         display: none;
