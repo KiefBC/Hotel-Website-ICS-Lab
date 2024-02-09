@@ -1,17 +1,27 @@
 document.addEventListener('DOMContentLoaded', function () {
-    counter();
+    initializeCounter();
+    initializeUpdateLetterCounts();
+    initializeUserDate();
+    isItInRange();
+});
 
+const initializeCounter = () => {
+    let nameInput = document.getElementById('name-input');
+    nameInput.addEventListener('input', counter);
+};
+
+const initializeUpdateLetterCounts = () => {
     let nameInput = document.getElementById('name-input');
     let letterInput = document.getElementById('find-letter-input');
 
     nameInput.addEventListener('input', updateLetterCounts);
     letterInput.addEventListener('input', updateLetterCounts);
+};
 
+const initializeUserDate = () => {
     const dateInput = document.getElementById('date-input');
     dateInput.addEventListener('change', userDate);
-
-    isItInRange();
-});
+};
 
 const counter = () => {
     let nameInput = document.getElementById('name-input');
