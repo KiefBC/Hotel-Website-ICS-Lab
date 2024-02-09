@@ -5,6 +5,17 @@ document.addEventListener('DOMContentLoaded', function () {
     isItInRange();
 });
 
+/**
+ * I don't know another way of initializing these next 3 input listeners.
+ * There must be a better way, but I don't know what
+ * Specifically talking about:
+
+ *   initializeCounter(),
+ *   initializeUpdateLetterCounts()
+ *   initializeUserDate()
+
+ * I'll figure it out one day
+ */
 const initializeCounter = () => {
     let nameInput = document.getElementById('name-input');
     nameInput.addEventListener('input', counter);
@@ -23,6 +34,11 @@ const initializeUserDate = () => {
     dateInput.addEventListener('change', userDate);
 };
 
+/**
+ * This is the main function for the counter
+ * It's the one that gets called when the input changes
+ * It will count the spaces in the input and display it
+ */
 const counter = () => {
     let nameInput = document.getElementById('name-input');
     let spaceCounter = document.getElementById('space-counter');
@@ -39,6 +55,13 @@ const counter = () => {
     });
 };
 
+/**
+ * This function will update the letter counts
+ * It will get the name and the letters to find
+ * It will then count the occurrences of the letters in the name
+ * It will then display the occurrences in the HTML
+ * It will also remove duplicates from the letters to find by, using the removeDuplicates function
+ */
 const updateLetterCounts = () => {
     let nameInput = document.getElementById('name-input');
     let letterInput = document.getElementById('find-letter-input');
@@ -56,6 +79,11 @@ const updateLetterCounts = () => {
     letterCounter.innerHTML = counts.join('<br>');
 };
 
+/**
+ * This function will remove duplicates from an array
+ * @param array of letters
+ * @returns array
+ */
 const removeDuplicates = (array) => {
     /*
     I know you said don't use Set, because we haven't learned it yet,
@@ -65,6 +93,13 @@ const removeDuplicates = (array) => {
     return Array.from(new Set(array));
 };
 
+/**
+ * This function will get the selected date from the input
+ * It will then display the date and the days in the month
+ * It will also display the work days in the month
+ * It will also display the minimum wage and the monthly salary
+ * @param event - the event of the input change
+ */
 const userDate = (event) => {
     const selectedDateString = event.target.value;
 
@@ -86,6 +121,11 @@ const userDate = (event) => {
     dateInformation.innerHTML += `<p class="my-3 text-center">Monthly Salary (8-hour): <span class="text-success fw-bold">$${wage.toFixed(2)}</span></p>`;
 };
 
+/**
+ * This function will calculate the work days in a month
+ * @param date - the date to calculate the work days
+ * @returns {number}
+ */
 const workDaysInMonth = (date) => {
     let daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
     let workDays = 0;
@@ -98,6 +138,12 @@ const workDaysInMonth = (date) => {
     return workDays;
 }
 
+/**
+ * This function will calculate the minimum wage
+ * @param minimumWage - the minimum wage
+ * @param workDays - the work days in the month
+ * @returns {number}
+ */
 const calculateMinimumWage = (minimumWage, workDays) => {
     let hoursPerDay = 8;
     let salary = minimumWage * workDays * hoursPerDay;
@@ -105,6 +151,11 @@ const calculateMinimumWage = (minimumWage, workDays) => {
     return salary;
 }
 
+/**
+ * This function will check if the input is in range
+ * It will display the input and if it's less, equal or greater than 2
+ * It will also display an error message if the input is not a number
+ */
 const isItInRange = () => {
     let errorInput = document.getElementById('error-input');
     let errorOutput = document.getElementById('error-output');
