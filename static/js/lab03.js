@@ -71,6 +71,7 @@ const initializeUserDate = () => {
  * It's the one that gets called when the input changes
  * It will count the spaces in the input and display it
  */
+
 const counter = () => {
     let nameInput = document.getElementById('name-input');
     let spaceCounter = document.getElementById('space-counter');
@@ -134,14 +135,14 @@ const removeDuplicates = (array) => {
  */
 const userDate = (event) => {
     const selectedDateString = event.target.value;
+    console.log(selectedDateString)
 
     let dateInformation = document.getElementById('date-information');
     dateInformation.innerHTML = `<p class="my-3 text-center">Birthday: <span class="text-muted fw-bold">${selectedDateString}</span></p>`;
 
-    let date = new Date(selectedDateString);
-    let daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    let date = new Date(selectedDateString + 'T00:00:00');
+    let daysInMonth = new Date(Date.UTC(date.getFullYear(), date.getMonth() + 1, 0)).getUTCDate();
     dateInformation.innerHTML += `<p class="my-3 text-center">Days in month: <span class="text-secondary fw-bold">${daysInMonth}</span></p>`;
-
 
     let workDays = workDaysInMonth(date);
     dateInformation.innerHTML += `<p class="my-3 text-center">Work days in month: <span class="text-info fw-bold">${workDays}</span></p>`;
@@ -155,11 +156,10 @@ const userDate = (event) => {
 
 /**
  * This function will calculate the work days in a month
- * @param date - the date to calculate the work days
  * @returns {number}
  */
 const workDaysInMonth = (date) => {
-    let daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    let daysInMonth = new Date(Date.UTC(date.getFullYear(), date.getMonth() + 1, 0)).getUTCDate();
     let workDays = 0;
     for (let i = 1; i <= daysInMonth; i++) {
         date.setDate(i);
