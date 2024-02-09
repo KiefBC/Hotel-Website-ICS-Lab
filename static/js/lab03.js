@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     isItInRange();
 });
 
+let htmlContent = '';
+
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡤⠶⠒⠒⠒⠒⠲⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡤⠖⠉⠁⠀⠀⠀⠀⠁⠀⠐⠤⣄⠉⠓⢦⣄⠀⠀⠀⠀
@@ -35,6 +37,9 @@ document.addEventListener('DOMContentLoaded', function () {
 ⠀⠀⠀⠀⠀⠀⠀⣯⣆⠀⠀⢹⣟⡏⠀⢸⠦⠀⠀⠀⠀⡄⠀⠀⠀⠠⣧⣿⠀⠀⢸⡇⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠸⣜⢦⣀⡜⡞⠀⠀⢸⡓⢀⡁⠀⠀⡇⠀⠀⡀⠐⣿⡇⠀⠀⠈⡇⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠙⢶⣥⡽⠁⠀⠀⢸⣅⣤⣄⣀⣀⣀⣀⣀⣤⣈⡿⢷⡀⣀⣸⠇⠀⠀
+
+I have a feeling your going to have us merge all these javascript files into one
+And use it to book hotel rooms with the knowledge we have gained from doing these labs
  */
 
 /**
@@ -47,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
  *   initializeUserDate()
 
  * I'll figure it out one day
+ * All they do is add an event listener to the input and call the function
  */
 const initializeCounter = () => {
     let nameInput = document.getElementById('name-input');
@@ -80,11 +86,13 @@ const counter = () => {
         let nameInputValue = nameInput.value;
 
         if (nameInputValue === '') {
-            spaceCounter.innerHTML = '';
+            htmlContent = '';
         } else {
             let spaceCount = nameInputValue.split(' ').length - 1;
-            spaceCounter.innerHTML = `<p class="my-3">Spaces: <span class="fw-bold text-info">${spaceCount}</span></p>`;
+            htmlContent = `<p class="my-3">Spaces: <span class="fw-bold text-info">${spaceCount}</span></p>`;
         }
+
+        spaceCounter.innerHTML = htmlContent;
     });
 };
 
@@ -138,20 +146,26 @@ const userDate = (event) => {
     console.log(selectedDateString)
 
     let dateInformation = document.getElementById('date-information');
-    dateInformation.innerHTML = `<p class="my-3 text-center">Birthday: <span class="text-muted fw-bold">${selectedDateString}</span></p>`;
+    htmlContent = `<p class="my-3 text-center">Birthday: <span class="text-muted fw-bold">${selectedDateString}</span></p>`;
 
+    /*
+    This {date} is a bit of a mess, but it works
+    I'm not sure if there's a better way to do it
+     */
     let date = new Date(selectedDateString + 'T00:00:00');
     let daysInMonth = new Date(Date.UTC(date.getFullYear(), date.getMonth() + 1, 0)).getUTCDate();
-    dateInformation.innerHTML += `<p class="my-3 text-center">Days in month: <span class="text-secondary fw-bold">${daysInMonth}</span></p>`;
+    htmlContent += `<p class="my-3 text-center">Days in month: <span class="text-secondary fw-bold">${daysInMonth}</span></p>`;
 
     let workDays = workDaysInMonth(date);
-    dateInformation.innerHTML += `<p class="my-3 text-center">Work days in month: <span class="text-info fw-bold">${workDays}</span></p>`;
+    htmlContent += `<p class="my-3 text-center">Work days in month: <span class="text-info fw-bold">${workDays}</span></p>`;
 
     const minimumWage = 16.75;
     let wage = calculateMinimumWage(minimumWage, workDays);
 
-    dateInformation.innerHTML += `<p class="my-3 text-center">Minimum wage: <span class="text-warning fw-bold">$${minimumWage}</span></p>`;
-    dateInformation.innerHTML += `<p class="my-3 text-center">Monthly Salary (8-hour): <span class="text-success fw-bold">$${wage.toFixed(2)}</span></p>`;
+    htmlContent += `<p class="my-3 text-center">Minimum wage: <span class="text-warning fw-bold">$${minimumWage}</span></p>`;
+    htmlContent += `<p class="my-3 text-center">Monthly Salary (8-hour): <span class="text-success fw-bold">$${wage.toFixed(2)}</span></p>`;
+
+    dateInformation.innerHTML = htmlContent;
 };
 
 /**
@@ -159,6 +173,9 @@ const userDate = (event) => {
  * @returns {number}
  */
 const workDaysInMonth = (date) => {
+    /*
+    I hate Feb 1st, why does it have to be so special?
+     */
     let daysInMonth = new Date(Date.UTC(date.getFullYear(), date.getMonth() + 1, 0)).getUTCDate();
     let workDays = 0;
     for (let i = 1; i <= daysInMonth; i++) {
@@ -197,22 +214,37 @@ const isItInRange = () => {
             let errorInputValue = parseFloat(errorInput.value);
 
             if (isNaN(errorInputValue)) {
-                errorOutput.innerHTML = '';
+                htmlContent = '';
+            } else if (errorInputValue < 0) {
+                htmlContent = `<p class="my-3 text-center">Your number: <span class="fw-bold text-primary">${errorInputValue}</span></p>`;
+                htmlContent += `<p class="my-3 text-center">Your number is <span class="text-warning fw-bold bg-secondary">Less</span> than <span class="fw-bold">0</span></p>`;
+                throw new Error(`Error - Your number <span class="fw-bold text-dark">${errorInputValue}</span> is less than <span class="fw-bold text-dark">0</span>. The value must be zero or greater.`);
             } else if (errorInputValue < 2) {
-                errorOutput.innerHTML = `<p class="my-3 text-center">Your number: <span class="fw-bold text-primary">${errorInputValue}</span></p>`;
-                errorOutput.innerHTML += `<p class="my-3 text-center">Your number is <span class="text-warning fw-bold bg-secondary">Less</span> than <span class="fw-bold">2</span></p>`;
+                htmlContent = `<p class="my-3 text-center">Your number: <span class="fw-bold text-primary">${errorInputValue}</span></p>`;
+                htmlContent += `<p class="my-3 text-center">Your number is <span class="text-warning fw-bold bg-secondary">Less</span> than <span class="fw-bold">2</span></p>`;
                 throw new Error(`Error - Your number <span class="fw-bold text-dark">${errorInputValue}</span> is less than <span class="fw-bold text-dark">2</span>`);
             } else if (errorInputValue === 2) {
-                errorOutput.innerHTML = `<p class="my-3 text-center">Your number: <span class="fw-bold text-primary">${errorInputValue}</span></p>`;
-                errorOutput.innerHTML += `<p class="my-3 text-center">Your number is <span class="text-warning fw-bold bg-secondary">Equal</span> to <span class="fw-bold">2</span></p>`;
-                throw new Error(`Your number <span class="fw-bold text-dark">${errorInputValue}</span> is in range`);
+                htmlContent = `<p class="my-3 text-center">Your number: <span class="fw-bold text-primary">${errorInputValue}</span></p>`;
+                htmlContent += `<p class="my-3 text-center">Your number is <span class="text-warning fw-bold bg-secondary">Equal</span> to <span class="fw-bold">2</span></p>`;
+
+                /*
+                If we are looking for 2 or more, why are we throwing an error when its 2?
+                It hurt me to do this
+                 */
+                throw new Error(`Your number <span class="fw-bold text-dark">${errorInputValue}</span> is less than <span class="fw-bold text-dark">2</span>`);
+            } else if (errorInputValue > 2 && errorInputValue <= 4) {
+                htmlContent = `<p class="my-3 text-center">Your number: <span class="fw-bold text-primary">${errorInputValue}</span></p>`;
+                htmlContent += `<p class="my-3 text-center">Your number is <span class="text-warning fw-bold bg-secondary">Greater</span> than <span class="fw-bold">2</span></p>`;
+                htmlContent += `<p class="my-3 text-center text-primary">Your number <span class="fw-bold text-dark">${errorInputValue}</span> is over <span class="fw-bold">2</span></p>`;
             } else if (errorInputValue > 2) {
-                errorOutput.innerHTML = `<p class="my-3 text-center">Your number: <span class="fw-bold text-primary">${errorInputValue}</span></p>`;
-                errorOutput.innerHTML += `<p class="my-3 text-center">Your number is <span class="text-warning fw-bold bg-secondary">Greater</span> than <span class="fw-bold text-dark">2</span></p>`;
-                throw new Error(`Your number <span class="fw-bold text-dark">${errorInputValue}</span> is in range`);
+                htmlContent = `<p class="my-3 text-center">Your number: <span class="fw-bold text-primary">${errorInputValue}</span></p>`;
+                htmlContent += `<p class="my-3 text-center">Your number is <span class="text-warning fw-bold bg-secondary">Greater</span> than <span class="fw-bold text-dark">2</span></p>`;
+                htmlContent += `<p class="my-3 text-center text-primary">Your number <span class="fw-bold text-dark">${errorInputValue}</span> is in range</p>`;
             }
         } catch (error) {
-            errorOutput.innerHTML += `<p class="my-3 text-danger fw-bold text-center">${error.message}</p>`;
+            htmlContent += `<p class="my-3 text-danger fw-bold text-center">${error.message}</p>`;
         }
+
+        errorOutput.innerHTML = htmlContent;
     });
 }
