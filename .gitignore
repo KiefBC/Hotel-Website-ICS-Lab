@@ -12,3 +12,4 @@ dist
 out
 gen
 *.xml
+*.Identifier
