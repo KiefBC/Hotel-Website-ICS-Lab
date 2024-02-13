@@ -218,6 +218,13 @@ input[type="date"] {
 }
 /*</editor-fold>*/
 
+.title-underline {
+    text-decoration: underline;
+    text-decoration-color: #000;
+    text-underline-offset: 1.2em;
+    text-decoration-thickness: 1px;
+}
+
 @media (max-width: 1024px) {
     #svgAvatar {
         display: none;
