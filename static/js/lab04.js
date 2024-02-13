@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeHotelRoomButtons();
 });
 
+/**
+ * This object contains the hotel room information.
+ */
 const hotelRooms = [{
     title: "Standard Package",
     description: "This is our standard package. It includes a bed, a bathroom, and a TV. It's perfect for a short stay.",
@@ -21,8 +24,13 @@ const hotelRooms = [{
     imgRef: "static/img/hotel-room-three.webp"
 }];
 
-// Never knew of '/g' in Javascript REGEX. It will come in handy for future ideas.
-// I wish I knew how to round the corners of the images to match the cards.
+/**
+ * This function displays the hotel room cards on the page.
+ * It uses the hotelRooms object to generate the cards.
+ *
+ * Personal Note: I wish I knew how to round the corners of the images to match the cards.
+ *                I also never knew of '/g' in Javascript REGEX. It will come in handy for future ideas.
+ */
 const displayHotelCards = () => {
     const hotelRoomContainer = document.getElementById('hotel-room-cards');
     hotelRooms.forEach(room => {
@@ -49,9 +57,23 @@ const displayHotelCards = () => {
     });
 }
 
+const displayHotelTable = () => {
+    const hotelTableContainer = document.getElementById('hotel-room-table');
+
+}
+
+/**
+ * This function initializes the hotel room buttons.
+ * It adds an event listener to each button that alerts the user that they have booked the room.
+ * The alert message includes the room title and price.
+ */
 const initializeHotelRoomButtons = () => {
     hotelRooms.forEach(room => {
         document.getElementById(`${room.title.replace(/\s/g, '-').toLowerCase()}-button`)
             .addEventListener('click', () => alert(`You have booked the ${room.title} for ${room.price}.`));
     });
+}
+
+const initializeHotelTableButton = () => {
+    return null;
 }
