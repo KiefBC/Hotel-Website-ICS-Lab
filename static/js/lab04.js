@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     displayHotelCards();
-    initializeHotelRoomButtons();
+    initializeHotelRoomButton();
+    initializeTableButton();
 });
 
 /**
@@ -35,7 +36,7 @@ const displayHotelCards = () => {
     const hotelRoomContainer = document.getElementById('hotel-room-cards');
     hotelRooms.forEach(room => {
         hotelRoomContainer.innerHTML += `
-        <div class="col-md my-5 px-5 mx-auto">
+        <div class="col-md-10 my-5 px-5 mx-auto">
             <div class="card" id="${room.title.replace(/\s/g, '-').toLowerCase()}-card">
                 <div class="card-body py-1">
                     <div class="row" id="hotel-rooms-cards">
@@ -57,9 +58,28 @@ const displayHotelCards = () => {
     });
 }
 
+/**
+ * This function displays the hotel room table on the page.
+ * It creates a table with the room type, description, price, and a book now button.
+ */
 const displayHotelTable = () => {
     const hotelTableContainer = document.getElementById('hotel-room-table');
 
+    hotelTableContainer.innerHTML = `
+    <table class="table table-striped table-hover table-dark" id="table-for-me">
+        <thead>
+            <tr>
+                <th scope="col">Room Type</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Book Now</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+
+        </tbody>
+    </table>
+    `;
 }
 
 /**
@@ -67,13 +87,51 @@ const displayHotelTable = () => {
  * It adds an event listener to each button that alerts the user that they have booked the room.
  * The alert message includes the room title and price.
  */
-const initializeHotelRoomButtons = () => {
+const initializeHotelRoomButton = () => {
     hotelRooms.forEach(room => {
         document.getElementById(`${room.title.replace(/\s/g, '-').toLowerCase()}-button`)
             .addEventListener('click', () => alert(`You have booked the ${room.title} for ${room.price}.`));
     });
 }
 
-const initializeHotelTableButton = () => {
-    return null;
+/**
+ * This function adds a new row to the hotel room table.
+ */
+const addTableRow = () => {
+    const tableBody = document.getElementById('table-body');
+    const newRow = document.createElement('tr');
+    let increment = tableBody.children.length + 1;
+    newRow.innerHTML = `
+        <td>${increment}</td>
+        <td>${increment}</td>
+        <td>${increment}</td>
+        <td>${increment}</td>
+    `;
+
+    tableBody.appendChild(newRow);
+
+    const addRowButton = document.getElementById('hotel-room-table-button');
+    addRowButton.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
+}
+
+/**
+ * This function initializes the hotel room table button.
+ * It adds an event listener to the button that displays the hotel room table.
+ * If the table is already displayed, the button adds a new row to the table.
+ */
+const initializeTableButton = () => {
+    const tableButton = document.getElementById('hotel-room-table-button');
+
+    const onClick = () => {
+        const tableDisplayed = document.getElementById('table-for-me');
+
+        if (!tableDisplayed) {
+            displayHotelTable();
+            tableButton.textContent = 'Add New Row';
+        } else {
+            addTableRow();
+        }
+    };
+
+    tableButton.addEventListener('click', onClick);
 }
