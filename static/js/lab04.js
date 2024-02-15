@@ -113,6 +113,11 @@ const addTableRow = () => {
     `;
 
     tableBody.appendChild(newRow);
+
+    // The scrollIntoView() works best here, instead of the initializeTableButton() function.
+    // For whatever reason, the view is lower when we declare this function in the initializeTableButton() function.
+    const button = document.getElementById('hotel-room-table-button');
+    button.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
 }
 
 /**
@@ -129,7 +134,6 @@ const initializeTableButton = () => {
      */
     const onClick = () => {
         const tableDisplayed = document.getElementById('table-for-me');
-        tableButton.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
 
         if (!tableDisplayed) {
             displayHotelTable();
