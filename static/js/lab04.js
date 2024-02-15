@@ -49,7 +49,7 @@ const displayHotelCards = () => {
                             <p class="card-text my-auto mx-auto px-2 mt-5 py-auto">${room.description}</p>
                             <p class="card-text mx-auto">Price: ${room.price}</p>
                             <div class="mt-auto text-end">
-                                <!-- This will make the room title the id of the button, but also appending button to it -->
+                                <!-- This will make the room title the id of the button, but also appending 'button' to it -->
                                 <button class="btn btn-primary mb-3" id="${room.title.replace(/\s/g, '-').toLowerCase()}-button">Book Now</button>
                             </div>
                         </div>
@@ -68,7 +68,7 @@ const displayHotelTable = () => {
     const hotelTableContainer = document.getElementById('hotel-room-table');
 
     hotelTableContainer.innerHTML = `
-    <table class="table table-striped table-hover table-dark" id="table-for-me">
+    <table class="table table-striped table-hover table-dark animate__bounceIn" id="table-for-me">
         <thead>
             <tr>
                 <th scope="col">Room Type</th>
@@ -104,6 +104,7 @@ const addTableRow = () => {
     const newRow = document.createElement('tr');
 
     let increment = tableBody.children.length + 1;
+
     newRow.innerHTML = `
         <td>${increment}</td>
         <td>${increment}</td>
@@ -112,9 +113,6 @@ const addTableRow = () => {
     `;
 
     tableBody.appendChild(newRow);
-
-    const addRowButton = document.getElementById('hotel-room-table-button');
-    addRowButton.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
 }
 
 /**
@@ -131,11 +129,12 @@ const initializeTableButton = () => {
      */
     const onClick = () => {
         const tableDisplayed = document.getElementById('table-for-me');
+        tableButton.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
 
         if (!tableDisplayed) {
             displayHotelTable();
+
             tableButton.textContent = 'Add New Row';
-            // make the button black
             tableButton.classList.remove('btn-primary');
             tableButton.classList.add('btn-dark', 'btn-outline-danger');
         } else {
