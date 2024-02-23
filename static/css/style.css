@@ -228,6 +228,10 @@ input[type="date"] {
 
 /*</editor-fold>*/
 
+.modal {
+    color: #3d4144;
+}
+
 @media (max-width: 1024px) {
     #svgAvatar {
         display: none;
