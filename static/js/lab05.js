@@ -38,7 +38,7 @@ const initializeLogin = () => {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="register-user-form">
+                    <form id="register-user-form" class="was-validated" novalidate>
                         <div class="mb-3 input-group">
                             <label for="first-name" class="form-label" hidden>First Name</label>
                             <span class="input-group-text">
@@ -49,6 +49,8 @@ const initializeLogin = () => {
                             </span>
                             <input type="text" class="form-control" id="first-name" placeholder="Enter your first name..."
                                    required pattern="^[A-Za-z]+$">
+                            <div class="valid-feedback text-center">Valid.</div>
+                            <div class="invalid-feedback text-center">Please fill out this field.</div>
                         </div>
                         <div class="mb-3 input-group">
                             <label for="last-name" class="form-label" hidden>Last Name</label>
@@ -61,6 +63,8 @@ const initializeLogin = () => {
                             </span>
                             <input type="text" class="form-control" id="last-name" placeholder="Enter your last name..."
                                    required pattern="^[A-Za-z]+$">
+                            <div class="valid-feedback text-center">Valid.</div>
+                            <div class="invalid-feedback text-center">Please fill out this field.</div>
                         </div>
                         <div class="mb-3 input-group">
                             <label for="age" class="form-label" hidden>Age</label>
@@ -71,6 +75,8 @@ const initializeLogin = () => {
                                 </svg>
                             </span>
                             <input type="number" class="form-control" id="age" placeholder="Enter your age..." required min="0" max="120">
+                            <div class="valid-feedback text-center">Valid.</div>
+                            <div class="invalid-feedback text-center">Please fill out this field.</div>
                         </div>
                         <div class="mb-3 input-group">
                             <label for="email" class="form-label" hidden>Email address</label>
@@ -82,6 +88,8 @@ const initializeLogin = () => {
                                 </svg>
                             </span>
                             <input type="email" class="form-control" id="email" placeholder="Enter your email..." required pattern="[^@\\s]+@[^@\\s]+\\.[^@\\s]+">
+                            <div class="valid-feedback text-center">Valid.</div>
+                            <div class="invalid-feedback text-center">Please fill out this field.</div>
                         </div>
                         <div class="mb-3 input-group">
                             <label for="postal-code" class="form-label" hidden>Postal Code</label>
@@ -93,6 +101,8 @@ const initializeLogin = () => {
                             </span>
                             <input type="text" class="form-control" id="postal-code" placeholder="Enter your postal..."
                                    required pattern="^[A-Za-z]\\d[A-Za-z] ?\\d[A-Za-z]\\d$">
+                            <div class="valid-feedback text-center">Valid.</div>
+                            <div class="invalid-feedback text-center">Please fill out this field.</div>
                         </div>
                         <div class="mb-3 input-group">
                             <label for="phone-number" class="form-label" hidden>Phone Number</label>
@@ -104,6 +114,8 @@ const initializeLogin = () => {
                             </span>
                             <input type="tel" class="form-control" id="phone-number"
                                    placeholder="Enter your phone number..." required pattern="^(?:\\d{3}-\\d{3}-\\d{4}|\\d{10}|\\d{3} \\d{3} \\d{4})$">
+                            <div class="valid-feedback text-center">Valid.</div>
+                            <div class="invalid-feedback text-center">Please fill out this field.</div>
                         </div>
                     </form>
                     <div class="d-flex flex-column justify-content-center mb-3" id="register-response">
@@ -138,6 +150,10 @@ const logoutUser = () => {
         setTimeout(() => {
             userCard.remove();
             userGreetings.remove();
+            /*
+            I could not find a better way of doing this without breaking the animation(s) and the user experience
+            I hate the refresh, but it works for now
+             */
             window.location.reload();
         }, 1000);
     }
@@ -255,7 +271,10 @@ const registerUser = () => {
             modalDialog.classList.remove('animate__lightSpeedInRight');
             modalDialog.classList.add('animate__hinge');
 
-            // If I don't do this, the animation won't work correctly - took me way to long to figure out
+            /*
+            If I don't do this, the animation won't work correctly - took me way to long to figure out
+            Surely there is a better way to do this, but I couldn't find it
+             */
             setTimeout(() => {
                 modalInstance.hide();
             }, 1000);
@@ -300,13 +319,17 @@ const generateFormResponse = (validationMessages) => {
 const validateForm = (firstName, lastName, phoneNumber, email, age, postalCode) => {
     let validationMessages = [];
 
-    if (firstName === "") {
+    if (/[0-9]+$/.test(firstName)) {
+        validationMessages.push('No digits allowed in First Name.');
+    } else if (firstName === "") {
         validationMessages.push('First Name cannot be empty.');
     } else if (!/^[A-Za-z]+$/.test(firstName)) {
         validationMessages.push('No spaces allowed in First Name.');
     }
 
-    if (lastName === "") {
+    if (/[0-9]]+$/.test(lastName)) {
+        validationMessages.push('No digits allowed in Last Name.');
+    } else if (lastName === "") {
         validationMessages.push('Last Name cannot be empty.');
     } else if (!/^[A-Za-z]+$/.test(lastName)) {
         validationMessages.push('No spaces allowed in Last Name.');
@@ -314,6 +337,8 @@ const validateForm = (firstName, lastName, phoneNumber, email, age, postalCode) 
 
     if (phoneNumber === "") {
         validationMessages.push('Phone Number cannot be empty.');
+    } else if (/[a-zA-Z]$/.test(phoneNumber)) {
+        validationMessages.push('Invalid phone number format. No characters allowed. (Yet...)');
     } else if (!/^(?:\d{3}-\d{3}-\d{4}|\d{10}|\d{3} \d{3} \d{4})$/.test(phoneNumber)) {
         validationMessages.push('Invalid phone number format. Use 000-000-0000, 0000000000, or 000 000 0000.');
     }
