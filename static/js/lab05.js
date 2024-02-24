@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /**
  * Check if the user is logged in
- * @type {boolean}
  */
 let userLoggedIn = false;
 
