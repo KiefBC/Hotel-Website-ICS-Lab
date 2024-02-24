@@ -301,27 +301,39 @@ const generateFormResponse = (validationMessages) => {
 const validateForm = (firstName, lastName, phoneNumber, email, age, postalCode) => {
     let validationMessages = [];
 
-    if (!/^[A-Za-z]+$/.test(firstName)) {
+    if (firstName === "") {
+        validationMessages.push('First Name cannot be empty.');
+    } else if (!/^[A-Za-z]+$/.test(firstName)) {
         validationMessages.push('No spaces allowed in First Name.');
     }
 
-    if (!/^[A-Za-z]+$/.test(lastName)) {
+    if (lastName === "") {
+        validationMessages.push('Last Name cannot be empty.');
+    } else if (!/^[A-Za-z]+$/.test(lastName)) {
         validationMessages.push('No spaces allowed in Last Name.');
     }
 
-    if (!/^(?:\d{3}-\d{3}-\d{4}|\d{10}|\d{3} \d{3} \d{4})$/.test(phoneNumber)) {
+    if (phoneNumber === "") {
+        validationMessages.push('Phone Number cannot be empty.');
+    } else if (!/^(?:\d{3}-\d{3}-\d{4}|\d{10}|\d{3} \d{3} \d{4})$/.test(phoneNumber)) {
         validationMessages.push('Invalid phone number format. Use 000-000-0000, 0000000000, or 000 000 0000.');
     }
 
-    if (!/[^@\s]+@[^@\s]+\.[^@\s]+/.test(email)) {
+    if (email === "") {
+        validationMessages.push('Email cannot be empty.');
+    } else if (!/[^@\s]+@[^@\s]+\.[^@\s]+/.test(email)) {
         validationMessages.push('Invalid email format. Use email@email.com');
     }
 
-    if (age < 0 || age > 120 || !/^\d+$/.test(age)) {
+    if (age === "") {
+        validationMessages.push('Age cannot be empty.');
+    } else if (age < 0 || age > 120 || !/^\d+$/.test(age)) {
         validationMessages.push('Invalid age. Must be between 0 and 120.');
     }
 
-    if (!/^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/.test(postalCode)) {
+    if (postalCode === "") {
+        validationMessages.push('Postal Code cannot be empty.');
+    } else if (!/^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/.test(postalCode)) {
         validationMessages.push('Invalid postal code format. Use ANANAN or ANA NAN format.');
     }
 
