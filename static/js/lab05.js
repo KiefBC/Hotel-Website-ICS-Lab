@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    initializeLoginButton();
+    initializeLogin();
     registerUser();
     checkUserLoggedIn();
 });
@@ -14,7 +14,7 @@ let userLoggedIn = false;
  * Initialize the login button in the navbar
  * If the signup-log-btn does not exist, create a new button and add it to the navbar
  */
-const initializeLoginButton = () => {
+const initializeLogin = () => {
     const signUpButton = document.getElementById('signup-log-btn');
     const navbar = document.querySelector('#navbarNav');
     const modal = document.getElementById('register-user-modal');
@@ -109,6 +109,7 @@ const initializeLoginButton = () => {
                 </form>
                 <div class="d-flex flex-column justify-content-center mb-3" id="register-response">
                 </div>
+                <p>Form Will Keep Correct Values</p>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="register-submit-btn">Submit</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-modal-button">Close</button>
@@ -133,6 +134,7 @@ const logoutUser = () => {
         checkUserLoggedIn();
 
         userCard.classList.add('animate__animated', 'animate__fadeOut');
+        userGreetings.classList.add('animate__animated', 'animate__slideOutUp');
 
         setTimeout(() => {
             userCard.remove();
@@ -141,7 +143,7 @@ const logoutUser = () => {
         }, 1000);
     }
 
-    initializeLoginButton();
+    initializeLogin();
 }
 
 /**
@@ -157,21 +159,15 @@ const checkUserLoggedIn = () => {
         loginButton.classList.remove('btn-outline-success');
         loginButton.classList.add('btn-outline-danger');
 
-        // Remove modal trigger attributes and event listeners related to modal
-        // loginButton.removeAttribute('data-bs-toggle');
-        // loginButton.removeAttribute('data-bs-target');
-        loginButton.removeEventListener('click', registerUser); // Remove registerUser if previously added
+        loginButton.removeEventListener('click', registerUser);
         loginButton.addEventListener('click', logoutUser);
     } else {
         loginButton.innerText = 'Login';
         loginButton.classList.remove('btn-outline-danger');
         loginButton.classList.add('btn-outline-success');
 
-        // Re-add modal trigger attributes
         loginButton.setAttribute('data-bs-toggle', 'modal');
         loginButton.setAttribute('data-bs-target', '#register-user-modal');
-        loginButton.removeEventListener('click', logoutUser); // Remove logoutUser to prevent page reload
-        // loginButton.addEventListener('click', registerUser); // Ensure registerUser is correctly managed
     }
 }
 
@@ -182,12 +178,12 @@ const checkUserLoggedIn = () => {
  */
 const clearInvalidInputs = () => {
     const firstName = document.getElementById('first-name');
-    if (/\s/.test(firstName.value)) {
+    if (!/^[A-Za-z]+$/.test(firstName.value)) {
         firstName.value = ''; // Clear if invalid
     }
 
     const lastName = document.getElementById('last-name');
-    if (/\s/.test(lastName.value)) {
+    if (!/^[A-Za-z]+$/.test(lastName.value)) {
         lastName.value = ''; // Clear if invalid
     }
 
@@ -242,29 +238,28 @@ const registerUser = () => {
 
     submitButton.addEventListener('click', (event) => {
         event.preventDefault();
-        let validationMessages = [];
+
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
+        const userAge = document.getElementById('age').value;
+        const userEmail = document.getElementById('email').value;
+        const userPhone = document.getElementById('phone-number').value;
+        const userAddress = document.getElementById('postal-code').value;
 
         if (registerForm.checkValidity()) {
             userLoggedIn = true;
             checkUserLoggedIn();
 
-            const firstName = document.getElementById('first-name').value;
-            const lastName = document.getElementById('last-name').value;
-            const userAge = document.getElementById('age').value;
-            const userEmail = document.getElementById('email').value;
-            const userPhone = document.getElementById('phone-number').value;
-            const userAddress = document.getElementById('postal-code').value;
-
             welcomeUser(firstName, lastName);
             generateUserCard(firstName, lastName, userAge, userEmail, userPhone, userAddress);
 
             modalDialog.classList.remove('animate__lightSpeedInRight');
-            modalDialog.classList.add('animate__zoomOut');
+            modalDialog.classList.add('animate__hinge');
 
             // If I don't do this, the animation won't work correctly - took me way to long to figure out
             setTimeout(() => {
                 modalInstance.hide();
-            }, 500);
+            }, 1000);
 
             loginButton.removeAttribute('data-bs-toggle');
             loginButton.removeAttribute('data-bs-target');
@@ -275,42 +270,62 @@ const registerUser = () => {
             console.log('Form is not valid, showing errors...');
             registerForm.reportValidity();
 
-            const firstName = document.getElementById('first-name');
-            if (/\s/.test(firstName.value)) {
-                validationMessages.push('No spaces allowed in First Name.');
-            }
-
-            const lastName = document.getElementById('last-name');
-            if (/\s/.test(lastName.value)) {
-                validationMessages.push('No spaces allowed in Last Name.');
-            }
-
-            const phoneNumber = document.getElementById('phone-number');
-            if (!/^(?:\d{3}-\d{3}-\d{4}|\d{10}|\d{3} \d{3} \d{4})$/.test(phoneNumber.value)) {
-                validationMessages.push('Invalid phone number format. Use 000-000-0000, 0000000000, or 000 000 0000.');
-            }
-
-            const email = document.getElementById('email');
-            if (!/[^@\s]+@[^@\s]+\.[^@\s]+/.test(email.value)) {
-                validationMessages.push('Invalid email format. email@email.com');
-            }
-
-            const age = document.getElementById('age');
-            if (age.value < 0 || age.value > 120) {
-                validationMessages.push('Invalid age. Must be between 0 and 120.');
-            }
-
-            const postalCode = document.getElementById('postal-code');
-            if (!/^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/.test(postalCode.value)) {
-                validationMessages.push('Invalid postal code format. Use ANANAN or ANA NAN format.');
-            }
+            const validationMessages = validateForm(firstName, lastName, userPhone, userEmail, userAge, userAddress);
 
             if (validationMessages.length > 0) {
                 const responseDiv = document.getElementById('register-response');
-                responseDiv.innerHTML = validationMessages.map(message => `<div class="alert alert-danger" role="alert">${message}</div>`).join('');
+                responseDiv.innerHTML = generateFormResponse(validationMessages);
             }
         }
     });
+}
+
+/**
+ * Generate form response
+ * If the user enters invalid input, the form will display an error message
+ * @param validationMessages - array of validation messages
+ */
+const generateFormResponse = (validationMessages) => {
+    return validationMessages.map(message => `<div class="alert alert-danger" role="alert">${message}</div>`).join('');
+}
+
+/**
+ * Validate the form
+ * @param firstName - user's first name
+ * @param lastName - user's last name
+ * @param phoneNumber - user's phone number
+ * @param email - user's email
+ * @param age - user's age
+ * @param postalCode - user's postal code
+ */
+const validateForm = (firstName, lastName, phoneNumber, email, age, postalCode) => {
+    let validationMessages = [];
+
+    if (!/^[A-Za-z]+$/.test(firstName)) {
+        validationMessages.push('No spaces allowed in First Name.');
+    }
+
+    if (!/^[A-Za-z]+$/.test(lastName)) {
+        validationMessages.push('No spaces allowed in Last Name.');
+    }
+
+    if (!/^(?:\d{3}-\d{3}-\d{4}|\d{10}|\d{3} \d{3} \d{4})$/.test(phoneNumber)) {
+        validationMessages.push('Invalid phone number format. Use 000-000-0000, 0000000000, or 000 000 0000.');
+    }
+
+    if (!/[^@\s]+@[^@\s]+\.[^@\s]+/.test(email)) {
+        validationMessages.push('Invalid email format. Use email@email.com');
+    }
+
+    if (age < 0 || age > 120) {
+        validationMessages.push('Invalid age. Must be between 0 and 120.');
+    }
+
+    if (!/^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/.test(postalCode)) {
+        validationMessages.push('Invalid postal code format. Use ANANAN or ANA NAN format.');
+    }
+
+    return validationMessages;
 }
 
 /**
@@ -352,7 +367,7 @@ const generateUserCard = (firstName, lastName, age, email, phone, address) => {
             <div class="card-body py-1">
                 <div class="row" id="hotel-rooms-cards">
                     <div class="col-md d-flex flex-column">
-                        <img src="https://placehold.co/400" class="img-fluid rounded-3" alt="face">
+                        <img src="static/img/portrait.jpg" class="img-fluid rounded-3" alt="face">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <p class="card-text text-center"><span class="fw-bolder fs-5">${firstName} ${lastName}</span><br><span class="text-warning fw-bolder">${email}</span></p>
