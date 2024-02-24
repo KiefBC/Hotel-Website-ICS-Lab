@@ -419,6 +419,5 @@ const generateUserCard = (firstName, lastName, age, email, phone, address) => {
     </div>
     `;
 
-    // insert user card after navbar
     navbar.parentNode.insertBefore(userCard, navbar.nextSibling);
 }
