@@ -120,19 +120,28 @@ const initializeLoginButton = () => {
     }
 }
 
+/**
+ * Logout the user
+ * When the user logs out, the user card will be removed and the login button will be reset
+ */
 const logoutUser = () => {
-    const loginButton = document.getElementById('signup-log-btn');
     const userCard = document.getElementById('user-card');
     const userGreetings = document.getElementById('greet-user');
 
     if (userLoggedIn) {
         userLoggedIn = false;
         checkUserLoggedIn();
-        userCard.remove();
-        userGreetings.remove();
 
-        location.reload();
+        userCard.classList.add('animate__animated', 'animate__fadeOut');
+
+        setTimeout(() => {
+            userCard.remove();
+            userGreetings.remove();
+            window.location.reload();
+        }, 1000);
     }
+
+    initializeLoginButton();
 }
 
 /**
@@ -148,15 +157,60 @@ const checkUserLoggedIn = () => {
         loginButton.classList.remove('btn-outline-success');
         loginButton.classList.add('btn-outline-danger');
 
+        // Remove modal trigger attributes and event listeners related to modal
+        // loginButton.removeAttribute('data-bs-toggle');
+        // loginButton.removeAttribute('data-bs-target');
+        loginButton.removeEventListener('click', registerUser); // Remove registerUser if previously added
         loginButton.addEventListener('click', logoutUser);
     } else {
         loginButton.innerText = 'Login';
         loginButton.classList.remove('btn-outline-danger');
         loginButton.classList.add('btn-outline-success');
-        loginButton.dataset.bsToggle = 'modal';
-        loginButton.dataset.bsTarget = '#register-user-modal';
+
+        // Re-add modal trigger attributes
+        loginButton.setAttribute('data-bs-toggle', 'modal');
+        loginButton.setAttribute('data-bs-target', '#register-user-modal');
+        loginButton.removeEventListener('click', logoutUser); // Remove logoutUser to prevent page reload
+        // loginButton.addEventListener('click', registerUser); // Ensure registerUser is correctly managed
     }
 }
+
+/**
+ * Clear invalid inputs
+ * If the user enters invalid input, the input will be cleared
+ * If the user enters valid input, the input will remain
+ */
+const clearInvalidInputs = () => {
+    const firstName = document.getElementById('first-name');
+    if (/\s/.test(firstName.value)) {
+        firstName.value = ''; // Clear if invalid
+    }
+
+    const lastName = document.getElementById('last-name');
+    if (/\s/.test(lastName.value)) {
+        lastName.value = ''; // Clear if invalid
+    }
+
+    const phoneNumber = document.getElementById('phone-number');
+    if (!/^(?:\d{3}-\d{3}-\d{4}|\d{10}|\d{3} \d{3} \d{4})$/.test(phoneNumber.value)) {
+        phoneNumber.value = ''; // Clear if invalid
+    }
+
+    const email = document.getElementById('email');
+    if (!/[^@\s]+@[^@\s]+\.[^@\s]+/.test(email.value)) {
+        email.value = ''; // Clear if invalid
+    }
+
+    const age = document.getElementById('age');
+    if (age.value < 0 || age.value > 120) {
+        age.value = ''; // Clear if invalid
+    }
+
+    const postalCode = document.getElementById('postal-code');
+    if (!/^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/.test(postalCode.value)) {
+        postalCode.value = ''; // Clear if invalid
+    }
+};
 
 /**
  * Register a new user
@@ -168,6 +222,7 @@ const registerUser = () => {
     const closeButton = document.getElementById('close-modal-button');
     const registerForm = document.getElementById('register-user-form');
     const modal = document.getElementById('register-user-modal');
+    const formResponse = document.getElementById('register-response');
     const modalInstance = new bootstrap.Modal(modal);
 
     const modalDialog = document.querySelector('.modal-dialog');
@@ -175,10 +230,14 @@ const registerUser = () => {
     modal.addEventListener('show.bs.modal', () => {
         modalDialog.classList.remove('animate__lightSpeedInLeft');
         modalDialog.classList.add('animate__animated', 'animate__lightSpeedInRight', 'animate__slow');
+        formResponse.innerHTML = '';
     });
 
+    modal.addEventListener('hide.bs.modal', clearInvalidInputs);
+
     closeButton.addEventListener('click', () => {
-        registerForm.reset();
+        clearInvalidInputs();
+        formResponse.innerHTML = '';
     });
 
     submitButton.addEventListener('click', (event) => {
@@ -207,18 +266,14 @@ const registerUser = () => {
                 modalInstance.hide();
             }, 500);
 
-            // Remove attributes that trigger the modal
             loginButton.removeAttribute('data-bs-toggle');
             loginButton.removeAttribute('data-bs-target');
-
-            // remove event listener
+            loginButton.removeEventListener('click', registerUser);
             loginButton.addEventListener('click', logoutUser);
 
         } else {
             console.log('Form is not valid, showing errors...');
             registerForm.reportValidity();
-
-            document.getElementById('register-response').innerHTML = '';
 
             const firstName = document.getElementById('first-name');
             if (/\s/.test(firstName.value)) {
