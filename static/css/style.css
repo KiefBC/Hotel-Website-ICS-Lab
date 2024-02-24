@@ -229,9 +229,12 @@ input[type="date"] {
 
 /*</editor-fold>*/
 
+/*<editor-fold desc="Lab05">*/
 .modal {
     color: #3d4144;
 }
+
+/*</editor-fold>*/
 
 @media (max-width: 1024px) {
     #svgAvatar {
