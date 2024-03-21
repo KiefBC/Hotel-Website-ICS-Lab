@@ -32,6 +32,12 @@ class Hotel {
             console.log("\nRoom booked!\n");
             console.log("\nRooms available: " + this.checkAvailability());
 
+            if (this.booked > this.rooms / 2) {
+                document.getElementById('booked-rooms').style.color = "red";
+            } else {
+                document.getElementById('booked-rooms').style.color = "black";
+            }
+
             document.getElementById('booked-rooms').textContent = `There are ${this.booked}/${this.rooms} room booked! Act fast!`;
 
             return true;
@@ -47,6 +53,12 @@ class Hotel {
             this.booked -= 1;
             console.log("\nRoom cancelled!\n");
             console.log("\nRooms available: " + this.checkAvailability());
+
+            if (this.booked > this.rooms / 2) {
+                document.getElementById('booked-rooms').style.color = "red";
+            } else {
+                document.getElementById('booked-rooms').style.color = "black";
+            }
 
             document.getElementById('booked-rooms').textContent = `There are ${this.booked}/${this.rooms} room booked! Act fast!`;
             return true;
@@ -106,19 +118,19 @@ class Hotel {
         }
 
         row.innerHTML += `
-            <div class="col-md-6">
+            <div class="col-md-6 mt-3">
                 <div class="card" id="hotel-card">
                     <h5 class="card-header">Welcome!</h5>
                     <div class="card-body">
-                        <h5 class="card-title">${this.name}</h5>
-                        <h3>Hotel Information:</h3>
-                        <p class="card-text">Room Types: ${this.roomtypes}</p>
-                        <p class="card-text">Rooms Available: ${this.rooms - this.booked}</p>
-                        <p class="card-text">Location: ${this.location}</p>
-                        <p class="card-text">Has Gym: ${this.hasGym}</p>
-                        <p class="card-text">Has Pool: ${this.hasPool}</p>
-                        <p class="card-text">Has Shuttle: ${this.hasShuttle}</p>
-                        <h3>Restaurants:</h3>
+                        <h1 class="card-title"><span class="text-decoration-underline">${this.name}</span></h1>
+                        <h5 class="mt-3 mb-3">Hotel Information:</h5>
+                        <p class="card-text m-0"><span class="fw-bolder">Room Types:</span> ${this.roomtypes}</p>
+                        <p class="card-text m-0"><span class="fw-bolder">Rooms Available:</span> ${this.rooms - this.booked}</p>
+                        <p class="card-text m-0"><span class="fw-bolder">Location:</span> ${this.location}</p>
+                        <p class="card-text m-0"><span class="fw-bolder">Has Gym:</span> ${this.hasGym}</p>
+                        <p class="card-text m-0"><span class="fw-bolder">Has Pool:</span> ${this.hasPool}</p>
+                        <p class="card-text m-0"><span class="fw-bolder">Has Shuttle:</span> ${this.hasShuttle}</p>
+                        <h3 class="mt-3">Restaurants:</h3>
                         <ol>
                             ${restaurants}
                         </ol>
@@ -126,9 +138,6 @@ class Hotel {
                         <button class="btn btn-primary" id="book-hotel-button">Book a Room</button>
                         <button class="btn btn-danger" id="cancel-hotel-button">Cancel a Room</button>
                     </div>
-                </div>
-                <div class="d-flex justify-content-center align-items-center mt-3 mb-3" id="resort-button">
-                    <button id="btn-resort-get" class="btn btn-primary">See our Sister Resort</button>
                 </div>
             </div>
         `;
@@ -144,8 +153,17 @@ class Hotel {
 
     showResort() {
         console.log("\nShowing Resort...\n");
-        let resort = new Resort("Hilton Resort", "Family", true, true);
+        let ArrayOfNames = ["Hilton Resort", "Marriott Resort", "Sheraton Resort", "Ritz-Carlton Resort", "Four Seasons Resort"];
+        let ArrayOfTypes = ["Family", "Couples", "Business", "Luxury", "Budget"];
+        let ArrayOfBeachFront = [true, false];
+        let ArrayOfKidsClub = [true, false];
+
+        let resort = new Resort(ArrayOfNames[Math.floor(Math.random() * ArrayOfNames.length)], ArrayOfTypes[Math.floor(Math.random() * ArrayOfTypes.length)], ArrayOfBeachFront[Math.floor(Math.random() * ArrayOfBeachFront.length)], ArrayOfKidsClub[Math.floor(Math.random() * ArrayOfKidsClub.length)]);
         resort.buildResortCard();
+
+        // remove button
+        const showResortButton = document.getElementById("btn-resort-get");
+        showResortButton.remove();
     }
 }
 
@@ -160,6 +178,7 @@ class Resort extends Hotel {
     buildResortCard() {
         console.log("\nBuilding Resort Card...\n");
         const row = document.querySelector(".row");
+        const resortButton = document.getElementById("btn-resort-get");
 
         let restaurants = "";
         for (let [name, type] of this.restaurants) {
@@ -167,21 +186,21 @@ class Resort extends Hotel {
         }
 
         const card = document.createElement("div");
-        card.setAttribute("class", "col-md-6");
+        card.setAttribute("class", "col-md-6 mt-3");
 
         card.innerHTML += `
-            <div class="card">
+            <div class="card" id="resort-card">
                 <h5 class="card-header">Welcome!</h5>
                 <div class="card-body">
-                    <h5 class="card-title">${this.name}</h5>
-                    <h3>Hotel Information:</h3>
-                    <p class="card-text">Room Types: ${this.roomtypes}</p>
-                    <p class="card-text">Rooms Available: ${this.rooms - this.booked}</p>
-                    <p class="card-text">Location: ${this.location}</p>
-                    <p class="card-text">Has Gym: ${this.hasGym}</p>
-                    <p class="card-text">Has Pool: ${this.hasPool}</p>
-                    <p class="card-text">Has Shuttle: ${this.hasShuttle}</p>
-                    <h3>Restaurants:</h3>
+                    <h1 class="card-title"><span class="text-decoration-underline">${this.name}</span></h1>
+                    <h5 class="mt-3 mb-3">Hotel Information:</h5>
+                    <p class="card-text m-0"><span class="fw-bolder">Room Types:</span> ${this.roomtypes}</p>
+                    <p class="card-text m-0"><span class="fw-bolder">Rooms Available:</span> ${this.rooms - this.booked}</p>
+                    <p class="card-text m-0"><span class="fw-bolder">Location:</span> ${this.location}</p>
+                    <p class="card-text m-0"><span class="fw-bolder">Has Gym:</span> ${this.hasGym}</p>
+                    <p class="card-text m-0"><span class="fw-bolder">Has Pool:</span> ${this.hasPool}</p>
+                    <p class="card-text m-0"><span class="fw-bolder">Has Shuttle:</span> ${this.hasShuttle}</p>
+                    <h3 class="mt-3">Restaurants:</h3>
                     <ol>
                         ${restaurants}
                     </ol>
@@ -191,6 +210,7 @@ class Resort extends Hotel {
                 </div>
             </div>
         `;
+
         row.appendChild(card);
 
         const bookButton = document.getElementById("book-resort-button");
@@ -206,6 +226,12 @@ class Resort extends Hotel {
             this.booked += 1;
             console.log("\nRoom booked!\n");
             console.log("\nRooms available: " + this.checkAvailability());
+
+            if (this.booked > this.rooms / 2) {
+                document.getElementById('resort-rooms').style.color = "red";
+            } else {
+                document.getElementById('resort-rooms').style.color = "black";
+            }
 
             document.getElementById('resort-rooms').textContent = `There are ${this.booked}/${this.rooms} room booked! Act fast!`;
 
@@ -223,6 +249,12 @@ class Resort extends Hotel {
             console.log("\nRoom cancelled!\n");
             console.log("\nRooms available: " + this.checkAvailability());
 
+            if (this.booked > this.rooms / 2) {
+                document.getElementById('resort-rooms').style.color = "red";
+            } else {
+                document.getElementById('resort-rooms').style.color = "black";
+            }
+
             document.getElementById('resort-rooms').textContent = `There are ${this.booked}/${this.rooms} room booked! Act fast!`;
             return true;
         } else {
@@ -232,9 +264,6 @@ class Resort extends Hotel {
     }
 }
 
-let hotel = new Hotel("Hilton");
-// let resort = new Resort("Hilton Resort", "Family", true, true);
-
+let hotel = new Hotel("The Hilton Hotel");
 hotel.buildHotelCard();
-// resort.buildResortCard();
 
