@@ -267,3 +267,4 @@ class Resort extends Hotel {
 let hotel = new Hotel("The Hilton Hotel");
 hotel.buildHotelCard();
 
+// TODO: Create nodal to ask user if they want a predefined Hotel, or a custom one
