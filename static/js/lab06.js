@@ -107,7 +107,7 @@ class Hotel {
 
         row.innerHTML += `
             <div class="col-md-6">
-                <div class="card">
+                <div class="card" id="hotel-card">
                     <h5 class="card-header">Welcome!</h5>
                     <div class="card-body">
                         <h5 class="card-title">${this.name}</h5>
@@ -127,14 +127,25 @@ class Hotel {
                         <button class="btn btn-danger" id="cancel-hotel-button">Cancel a Room</button>
                     </div>
                 </div>
+                <div class="d-flex justify-content-center align-items-center mt-3 mb-3" id="resort-button">
+                    <button id="btn-resort-get" class="btn btn-primary">See our Sister Resort</button>
+                </div>
             </div>
         `;
 
         const bookButton = document.getElementById("book-hotel-button");
         const cancelButton = document.getElementById("cancel-hotel-button");
+        const showResortButton = document.getElementById("btn-resort-get");
 
         bookButton.addEventListener("click", () => this.bookRoom());
         cancelButton.addEventListener("click", () => this.cancelRoom());
+        showResortButton.addEventListener("click", () => this.showResort());
+    }
+
+    showResort() {
+        console.log("\nShowing Resort...\n");
+        let resort = new Resort("Hilton Resort", "Family", true, true);
+        resort.buildResortCard();
     }
 }
 
@@ -222,8 +233,8 @@ class Resort extends Hotel {
 }
 
 let hotel = new Hotel("Hilton");
-let resort = new Resort("Hilton Resort", "Family", true, true);
+// let resort = new Resort("Hilton Resort", "Family", true, true);
 
 hotel.buildHotelCard();
-resort.buildResortCard();
+// resort.buildResortCard();
 
