@@ -236,7 +236,6 @@ class Resort extends Hotel {
     buildResortCard() {
         console.log("\nBuilding Resort Card...\n");
         const row = document.querySelector(".row");
-        const resortButton = document.getElementById("btn-resort-get");
 
         let restaurants = "";
         for (let [name, type] of this.restaurants) {
