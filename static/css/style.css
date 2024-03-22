@@ -132,51 +132,51 @@ table caption {
 
 /*<editor-fold desc="Lab02">*/
 /*<editor-fold desc="Card Effect">*/
-.card {
-    animation: spin 2s linear infinite;
-    background: linear-gradient(to bottom, var(--black), var(--black)) padding-box,
-    conic-gradient(
-            in oklch from var(--gradient-angle),
-            var(--purple),
-            var(--orange),
-            var(--yellow),
-            var(--blue),
-            var(--purple)
-    ) border-box;
-    border: 5px solid transparent;
-    border-radius: 20px;
-    position: relative;
+/*.card {*/
+/*    animation: spin 2s linear infinite;*/
+/*    background: linear-gradient(to bottom, var(--black), var(--black)) padding-box,*/
+/*    conic-gradient(*/
+/*            in oklch from var(--gradient-angle),*/
+/*            var(--purple),*/
+/*            var(--orange),*/
+/*            var(--yellow),*/
+/*            var(--blue),*/
+/*            var(--purple)*/
+/*    ) border-box;*/
+/*    border: 5px solid transparent;*/
+/*    border-radius: 20px;*/
+/*    position: relative;*/
 
-    &::after {
-        animation: spin 2s linear infinite;
-        background: conic-gradient(
-                in oklch from var(--gradient-angle),
-                var(--purple),
-                var(--orange),
-                var(--yellow),
-                var(--blue),
-                var(--purple)
-        );
-        border-radius: 15px;
-        content: "";
-        position: absolute;
-        inset: 0;
-        filter: blur(50px);
-        z-index: -1;
-    }
-}
+/*    &::after {*/
+/*        animation: spin 2s linear infinite;*/
+/*        background: conic-gradient(*/
+/*                in oklch from var(--gradient-angle),*/
+/*                var(--purple),*/
+/*                var(--orange),*/
+/*                var(--yellow),*/
+/*                var(--blue),*/
+/*                var(--purple)*/
+/*        );*/
+/*        border-radius: 15px;*/
+/*        content: "";*/
+/*        position: absolute;*/
+/*        inset: 0;*/
+/*        filter: blur(50px);*/
+/*        z-index: -1;*/
+/*    }*/
+/*}*/
 
-@property --gradient-angle {
-    inherits: false;
-    initial-value: 0deg;
-    syntax: "<angle>";
-}
+/*@property --gradient-angle {*/
+/*    inherits: false;*/
+/*    initial-value: 0deg;*/
+/*    syntax: "<angle>";*/
+/*}*/
 
-@keyframes spin {
-    to {
-        --gradient-angle: 360deg;
-    }
-}
+/*@keyframes spin {*/
+/*    to {*/
+/*        --gradient-angle: 360deg;*/
+/*    }*/
+/*}*/
 
 /*</editor-fold>*/
 
